@@ -1,0 +1,12 @@
+
+
+tester une fonction
+fonction helper (pour les comptes)
+tester un fichier produit 
+tester un resultat avec une foncttion (simulation verif database)
+setup teardown (kinit)
+comment tracer le resultat quand il est faux ?
+comment integrer dans Ci
+comment convertir tap en format junit 
+
+
