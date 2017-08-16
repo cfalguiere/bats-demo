@@ -2,9 +2,9 @@
 
 ## This test assumes that script under test lies in the same folder as the test
 
-## [ ] are regular bash tests
+## [ expr ] are regular bash tests. all test operators may be used.
 
-## regex applies. please note that the =~ operator is only defined for test2, thus it requires double []
+## please note that the regex operator =~ is only defined for test2, thus it requires double []
 
 @test "simple-script output should start with fo" {
   run $BATS_TEST_DIRNAME/simple-script.sh  "foo" 0
@@ -49,6 +49,16 @@
   [[ "${lines[@]}" =~ "foo" ]]
 }
 
+
+## check for the number of lines
+
+@test "simple-script-with-multiple-lines should output 2 lines" {
+  run $BATS_TEST_DIRNAME/simple-script-with-multiple-lines.sh
+  [ "$status" -eq 0 ]
+  [ "${#lines[@]}" -eq 2 ]
+}
+
+
 ## regexp also applies on lines
 
 @test "simple-script-with-multiple-lines should output lines consisting of 3 letters" {
@@ -58,20 +68,12 @@
   [[ "${lines[1]}" =~ ^...$ ]]
 }
 
-## regexp also applies on lines
+## tests may contain plain bash code
 
-@test "simple-script-with-multiple-lines should output lines consisting of 3 letters" {
+@test "simple-script-with-multiple-lines should output lines consisting of 3 letters - loop" {
   run $BATS_TEST_DIRNAME/simple-script-with-multiple-lines.sh
   [ "$status" -eq 0 ]
   for i in {0..1}; do
     [[ "${lines[$i]}" =~ ^...$ ]]
   done
-}
-
-## check for the number of lines
-
-@test "simple-script-with-multiple-lines should output 2 lines" {
-  run $BATS_TEST_DIRNAME/simple-script-with-multiple-lines.sh
-  [ "$status" -eq 0 ]
-  [ "${#lines[@]}" -eq 2 ]
 }
