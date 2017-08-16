@@ -5,11 +5,11 @@
 ## The simpliest way ti use bats it to call the script
 
 @test "basic-script-with-error should should fail" {
-  $BATS_TEST_DIRNAME/basic-script-with-error.sh
+  $BATS_TEST_DIRNAME/basic-script-with-errors.sh
 }
 
 @test "basic-script should succeed" {
-  $BATS_TEST_DIRNAME/basic-script.sh  "foo" 1
+  $BATS_TEST_DIRNAME/basic-script.sh  "foo" 0
 }
 
 @test "basic-script should fail" {
