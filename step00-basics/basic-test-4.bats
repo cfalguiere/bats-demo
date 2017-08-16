@@ -18,15 +18,13 @@
 @test "simple-script-with-multiple-lines should contain foo - debug" {
   run $BATS_TEST_DIRNAME/simple-script-with-multiple-lines.sh
   [ "$status" -eq 0 ]
-  echo "expansion of \${lines[@]} = ${lines[@]}"
-  [ "${lines[@]}" = "foo" ]
-  #[ "${lines[0]}" = "foo" ]  # correct test
+  echo "expansion of \${lines[@]} = ${lines[@]}" >&2 
+  [ "${lines[0]}" = "xxxx" ]
 }
 
 @test "simple-script-with-multiple-lines should contain foo - debug" {
   run $BATS_TEST_DIRNAME/simple-script-with-multiple-lines.sh
   [ "$status" -eq 0 ]
   echo "expansion of \${lines[@]} = ${lines[@]}"  > out.txt
-  [ "${lines[@]}" = "foo" ]
-  #[ "${lines[0]}" = "foo" ]  # correct test
+  [ "${lines[0]}" = "foo" ]  # correct test
 }
