@@ -1,2 +1,2 @@
 #!/bin/bash
-echo "foo" >&2
+echo "bar"
