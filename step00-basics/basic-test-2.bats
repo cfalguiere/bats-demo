@@ -50,7 +50,7 @@
 @test "simple-script-with-multiple-lines will fail" {
   run $BATS_TEST_DIRNAME/simple-script-with-multiple-lines.sh
   [ "$status" -eq 0 ]
-  [ "$output" = "foo\nbar" ]
+  [ "$output" = "foo" ]
 }
 
 ## check basic-test-3.bats for more check examples
