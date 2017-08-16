@@ -11,20 +11,30 @@
   run $BATS_TEST_DIRNAME/simple-script-with-multiple-lines.sh
   [ "$status" -eq 0 ]
   echo "content of \${output} = ${output}"
+  echo "expansion of \${lines[@]} = ${lines[@]}"  
   [ "${output}" = "foo" ]
   #[[ "${output}" =~ "foo" ]]  # correct test
 }
 
-@test "simple-script-with-multiple-lines should contain foo - debug" {
-  run $BATS_TEST_DIRNAME/simple-script-with-multiple-lines.sh
-  [ "$status" -eq 0 ]
-  echo "expansion of \${lines[@]} = ${lines[@]}" >&2 
-  [ "${lines[0]}" = "xxxx" ]
-}
+## printing onto a file work even when the test pass 
+## need some naming conventions TODO
 
-@test "simple-script-with-multiple-lines should contain foo - debug" {
+@test "simple-script-with-multiple-lines should contain foo - output file" {
   run $BATS_TEST_DIRNAME/simple-script-with-multiple-lines.sh
   [ "$status" -eq 0 ]
   echo "expansion of \${lines[@]} = ${lines[@]}"  > out.txt
   [ "${lines[0]}" = "foo" ]  # correct test
 }
+
+## be careful of using different names for each test. otherwise a failing test might be reported as passing 
+
+@test "same name - first should fail while other pass" {
+  run $BATS_TEST_DIRNAME/simple-script.sh  "foo" 1
+  [ "$status" -eq 0 ]
+}
+
+@test "same name - first should fail while other pass" {
+  run $BATS_TEST_DIRNAME/simple-script.sh  "foo" 0
+  [ "$status" -eq 0 ]
+}
+
