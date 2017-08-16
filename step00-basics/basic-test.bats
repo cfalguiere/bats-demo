@@ -13,7 +13,11 @@
   $BATS_TEST_DIRNAME/basic-script.sh  "foo" 1
 }
 
-@test "basic-script-with-error should should fail" {
+@test "basic-script-with-error should fail" {
   $BATS_TEST_DIRNAME/basic-script-with-errors.sh
+}
+
+@test "basic-script-with-stderr should pass" {
+  $BATS_TEST_DIRNAME/basic-script-with-stderr.sh
 }
 
