@@ -54,7 +54,18 @@
 @test "simple-script-with-multiple-lines should output lines consisting of 3 letters" {
   run $BATS_TEST_DIRNAME/simple-script-with-multiple-lines.sh
   [ "$status" -eq 0 ]
-  [ "${lines[0]}" =~ ^...$ ]
+  [[ "${lines[0]}" =~ ^...$ ]]
+  [[ "${lines[1]}" =~ ^...$ ]]
+}
+
+## regexp also applies on lines
+
+@test "simple-script-with-multiple-lines should output lines consisting of 3 letters" {
+  run $BATS_TEST_DIRNAME/simple-script-with-multiple-lines.sh
+  [ "$status" -eq 0 ]
+  for i in {0..1}; do
+    [[ "${lines[$i]}" =~ ^...$ ]]
+  done
 }
 
 ## check for the number of lines
