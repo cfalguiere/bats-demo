@@ -13,7 +13,7 @@
 ## the test will fail if the run program exit with a non zero code. Bats stops upon the first failing check
 
 
-@test "simple-script should pass" {
+@test "simple-script will fail" {
   run $BATS_TEST_DIRNAME/simple-script.sh  "foo" 1
   [ "$status" -eq 0 ]
   [ "$output" = "foo" ]
