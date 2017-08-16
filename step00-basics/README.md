@@ -72,3 +72,20 @@ $ ../bats/bin/bats step00-basics/basic-test-2.bats
 ```
 
 ## Advanced checks (multiple lines, patterns, ...)
+
+```
+$ ../bats/bin/bats step00-basics/basic-test-3.bats
+ ✓ simple-script output should start with fo
+ ✓ simple-script-with-multiple-lines output should contain foo
+ ✓ simple-script-with-multiple-lines should output foo then bar
+ ✗ simple-script-with-multiple-lines should output foo - will fail
+   (in test file step00-basics/basic-test-3.bats, line 41)
+     `[ "${lines[@]}" = "foo" ]' failed with status 2
+   /tmp/bats.4468.src: line 41: [: too many arguments
+ ✓ simple-script-with-multiple-lines should output foo - will pass
+ ✓ simple-script-with-multiple-lines should output 2 lines
+ ✓ simple-script-with-multiple-lines should output lines consisting of 3 letters
+ ✓ simple-script-with-multiple-lines should output lines consisting of 3 letters - loop
+
+8 tests, 1 failure
+```

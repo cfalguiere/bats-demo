@@ -11,7 +11,6 @@
   [[ "${output}" =~ "foo" ]]
 }
 
-`
 @test "simple-script-with-multiple-lines should output foo" {
   run $BATS_TEST_DIRNAME/simple-script-with-multiple-lines.sh
   [ "$status" -eq 0 ]
