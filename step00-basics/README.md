@@ -2,6 +2,8 @@
 
 ## Run bats
 
+Les exemples sont dans [basic-test.bats](basic-test.bats)
+
 Bats run with human-readable option
 
 ```
@@ -34,4 +36,7 @@ not ok 3 simple-script-with-error should fail on cat foo
 ok 4 simple-script-with-stderr should pass
 ```
 
-## Check output
+## Check exit code and output
+
+Les exemples sont dans [basic-test-2.bats](basic-test-2.bats)
+
