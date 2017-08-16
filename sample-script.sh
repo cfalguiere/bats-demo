@@ -36,6 +36,8 @@ while getopts "hvn:c:" opt; do
   case $opt in
     h)
       echo $usage
+      clean_exit
+      #clean_exit
       ;;
     v)
       let verbosity+=1
