@@ -17,7 +17,7 @@
 @test "simple-script-with-multiple-lines output should contain foo" {
   run $BATS_TEST_DIRNAME/simple-script-with-multiple-lines.sh
   [ "$status" -eq 0 ]
-  [[ "$output" =~ 'foo' ]]
+  [[ "$output" =~ foo ]]
 }
 
 
@@ -32,9 +32,10 @@
 
 ## check whether one of the lines match the pattern
 
-@test "simple-script-with-multiple-lines should output foo" {
+@test "simple-script-with-multiple-lines should output foo - will fail" {
   run $BATS_TEST_DIRNAME/simple-script-with-multiple-lines.sh
   [ "$status" -eq 0 ]
+  echo "expansion of \${lines[@]} = ${lines[@]}" >&2
   [ "${lines[@]}" = "foo" ]
 }
 
