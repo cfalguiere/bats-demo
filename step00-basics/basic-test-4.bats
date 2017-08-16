@@ -2,18 +2,31 @@
 
 ## This test assumes that script under test lies in the same folder as the test
 
-## a way to debug is to show the content of status, output and lines before entering the test
+## a way to debug is to show the content of status, output and lines
+## bats tests are silent when they pass
+## however when a test fail, bats shows the stdout and stderr of the test function
 
-@test "simple-script-with-multiple-lines should output foo" {
+
+@test "simple-script-with-multiple-lines should output foo - debug" {
   run $BATS_TEST_DIRNAME/simple-script-with-multiple-lines.sh
   [ "$status" -eq 0 ]
   echo "content of \${output} = ${output}"
-  [[ "${output}" =~ "foo" ]]
+  [ "${output}" = "foo" ]
+  #[[ "${output}" =~ "foo" ]]  # correct test
 }
 
-@test "simple-script-with-multiple-lines should output foo" {
+@test "simple-script-with-multiple-lines should contain foo - debug" {
   run $BATS_TEST_DIRNAME/simple-script-with-multiple-lines.sh
   [ "$status" -eq 0 ]
   echo "expansion of \${lines[@]} = ${lines[@]}"
-  [ "${lines[0]}" = "foo" ]
+  [ "${lines[@]}" = "foo" ]
+  #[ "${lines[0]}" = "foo" ]  # correct test
+}
+
+@test "simple-script-with-multiple-lines should contain foo - debug" {
+  run $BATS_TEST_DIRNAME/simple-script-with-multiple-lines.sh
+  [ "$status" -eq 0 ]
+  echo "expansion of \${lines[@]} = ${lines[@]}"  > out.txt
+  [ "${lines[@]}" = "foo" ]
+  #[ "${lines[0]}" = "foo" ]  # correct test
 }
