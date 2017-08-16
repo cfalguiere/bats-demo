@@ -10,19 +10,37 @@
   [ "$output" = "foo" ]
 }
 
-@test "simple-script should pass on exit 4 (lets say the purpose is to check for error detection)" {
+## the test will fail if the run program exit with a non zero code. Bats stops upon the first failing check
+
+
+@test "simple-script should pass" {
+  run $BATS_TEST_DIRNAME/simple-script.sh  "foo" 1
+  [ "$status" -eq 0 ]
+  [ "$output" = "foo" ]
+}
+
+## bats also fail when the program under test result in errors
+
+
+@test "simple-script-with-error will fail on cat foo" {
+  run $BATS_TEST_DIRNAME/simple-script-with-errors.sh
+  [ "$status" -eq 0 ]
+  [ "$output" = "foo" ]
+}
+
+
+## you may want to check for a non zero exit code (for instance the purpose of the test is to check for error detection)
+
+@test "simple-script should pass on exit 4 " {
   run $BATS_TEST_DIRNAME/simple-script.sh  "foo" 4
   [ "$status" -eq 4 ]
   [ "$output" = "foo" ]
 }
 
-@test "simple-script-with-error should fail on cat foo" {
-  run $BATS_TEST_DIRNAME/simple-script-with-errors.sh
-  [ "$status" -eq 0 ]
-}
+## outputs on stderr causes bats to fail
 
 @test "simple-script-with-stderr should pass" {
-  $BATS_TEST_DIRNAME/simple-script-with-stderr.sh
+  run $BATS_TEST_DIRNAME/simple-script-with-stderr.sh
   [ "$status" -eq 0 ]
   [ "$output" = "bar" ]
 }
