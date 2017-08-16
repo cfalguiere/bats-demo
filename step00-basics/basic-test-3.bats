@@ -37,16 +37,15 @@
 @test "simple-script-with-multiple-lines should output foo - will fail" {
   run $BATS_TEST_DIRNAME/simple-script-with-multiple-lines.sh
   [ "$status" -eq 0 ]
-  echo "expansion of \${lines[@]} = ${lines[@]}" >&2
+  #echo "expansion of \${lines[@]} = ${lines[@]}" >&2
   [ "${lines[@]}" = "foo" ]
 }
 
 ## check whether one of the lines match the pattern - pass but might not be what you want
 
-@test "simple-script-with-multiple-lines should output foo - will fail" {
+@test "simple-script-with-multiple-lines should output foo - will pass" {
   run $BATS_TEST_DIRNAME/simple-script-with-multiple-lines.sh
   [ "$status" -eq 0 ]
-  echo "expansion of \${lines[@]} = ${lines[@]}" >&2
   [[ "${lines[@]}" =~ "foo" ]]
 }
 
@@ -55,7 +54,7 @@
 @test "simple-script-with-multiple-lines should output lines consisting of 3 letters" {
   run $BATS_TEST_DIRNAME/simple-script-with-multiple-lines.sh
   [ "$status" -eq 0 ]
-  for i in {0..1}; do [ "${lines[@]}" =~ ^...$ ]; done
+  [ "${lines[*]}" =~ ^...$ ]
 }
 
 ## check for the number of lines
