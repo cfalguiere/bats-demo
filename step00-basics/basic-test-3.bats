@@ -54,7 +54,7 @@
 @test "simple-script-with-multiple-lines should output lines consisting of 3 letters" {
   run $BATS_TEST_DIRNAME/simple-script-with-multiple-lines.sh
   [ "$status" -eq 0 ]
-  [ "${lines[*]}" =~ ^...$ ]
+  [ "${lines[0]}" =~ ^...$ ]
 }
 
 ## check for the number of lines
