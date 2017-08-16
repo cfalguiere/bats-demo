@@ -9,11 +9,11 @@
   $BATS_TEST_DIRNAME/basic-script.sh  "foo" 0
 }
 
-@test "basic-script should fail" {
+@test "basic-script should fail on exit 1" {
   $BATS_TEST_DIRNAME/basic-script.sh  "foo" 1
 }
 
-@test "basic-script-with-error should fail" {
+@test "basic-script-with-error should fail on cat foo" {
   $BATS_TEST_DIRNAME/basic-script-with-errors.sh
 }
 
