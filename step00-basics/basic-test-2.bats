@@ -13,7 +13,7 @@
 ## the test will fail if the run program exit with a non zero code. Bats stops upon the first failing check
 
 
-@test "simple-script will fail" {
+@test "simple-script will fail because exit code is not as expected" {
   run $BATS_TEST_DIRNAME/simple-script.sh  "foo" 1
   [ "$status" -eq 0 ]
   [ "$output" = "foo" ]
@@ -45,12 +45,12 @@
   [ "$output" = "bar" ]
 }
 
-## $output = work fine for single line input but fail on multiple lines
+## $output = work fine for a single line input but fail on multiple lines
 
-@test "simple-script-with-stderr should pass" {
+@test "simple-script-with-multiple-lines will fail" {
   run $BATS_TEST_DIRNAME/simple-script-with-multiple-lines.sh
   [ "$status" -eq 0 ]
   [ "$output" = "foo" ]
 }
 
-## check basic-test-3.bats
+## check basic-test-3.bats for more check examples

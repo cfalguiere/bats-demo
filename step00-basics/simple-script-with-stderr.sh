@@ -1,2 +1,3 @@
 #!/bin/bash
-echo "bar" >&2
+echo "bar"
+#echo "bar" >&2
