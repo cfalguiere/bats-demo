@@ -41,7 +41,6 @@
 
 @test "simple-script-with-stderr should pass" {
   run $BATS_TEST_DIRNAME/simple-script-with-stderr.sh
-  echo ${status:'UNDEFINED'}
   [ "$status" -eq 0 ]
   [ "$output" = "bar" ]
 }
