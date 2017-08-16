@@ -31,6 +31,8 @@
 }
 
 ## check whether one of the lines match the pattern
+## this one will fail
+## you should be aware of what ${lines[@]} actually does. it shows the list of itmes on one row
 
 @test "simple-script-with-multiple-lines should output foo - will fail" {
   run $BATS_TEST_DIRNAME/simple-script-with-multiple-lines.sh
@@ -39,12 +41,21 @@
   [ "${lines[@]}" = "foo" ]
 }
 
-## regexp also applies on lines
+## check whether one of the lines match the pattern - pass but might not be what you want
 
-@test "simple-script-with-multiple-lines should output lines consiting of 3 letters" {
+@test "simple-script-with-multiple-lines should output foo - will fail" {
   run $BATS_TEST_DIRNAME/simple-script-with-multiple-lines.sh
   [ "$status" -eq 0 ]
-  [ "${lines[@]}" =~ ^...$ ]
+  echo "expansion of \${lines[@]} = ${lines[@]}" >&2
+  [[ "${lines[@]}" =~ "foo" ]]
+}
+
+## regexp also applies on lines
+
+@test "simple-script-with-multiple-lines should output lines consisting of 3 letters" {
+  run $BATS_TEST_DIRNAME/simple-script-with-multiple-lines.sh
+  [ "$status" -eq 0 ]
+  for i in {0..1}; do [ "${lines[@]}" =~ ^...$ ]; done
 }
 
 ## check for the number of lines
