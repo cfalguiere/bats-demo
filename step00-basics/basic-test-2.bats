@@ -37,7 +37,7 @@
   [ "$output" = "foo" ]
 }
 
-## outputs on stderr causes bats to fail
+## bats collects stdout and sdterr on output
 
 @test "simple-script-with-stderr should pass" {
   run $BATS_TEST_DIRNAME/simple-script-with-stderr.sh
@@ -45,3 +45,12 @@
   [ "$output" = "bar" ]
 }
 
+## $output = work fine for single line input but fail on multiple lines
+
+@test "simple-script-with-stderr should pass" {
+  run $BATS_TEST_DIRNAME/simple-script-with-multiple-lines.sh
+  [ "$status" -eq 0 ]
+  [ "$output" = "foo" ]
+}
+
+## check basic-test-3.bats
