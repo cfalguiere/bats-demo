@@ -1,12 +1,17 @@
 #!/usr/bin/env bats
 
-## assumes script under test lies in the same formder as the test
-## run tout seul ne teste pas les erreurs
+## This test assumes that script under test lies in the same folder as the test
 
-@test "basic-script should should succeed" {
-  $BATS_TEST_DIRNAME/basic-script.sh  0
+## The simpliest way ti use bats it to call the script
+
+@test "basic-script-with-error should should fail" {
+  $BATS_TEST_DIRNAME/basic-script-with-error.sh
+}
+
+@test "basic-script should succeed" {
+  $BATS_TEST_DIRNAME/basic-script.sh  "foo" 1
 }
 
 @test "basic-script should fail" {
-  $BATS_TEST_DIRNAME/basic-script.sh  1
+  $BATS_TEST_DIRNAME/basic-script.sh  "foo" 1
 }
