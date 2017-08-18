@@ -1,10 +1,14 @@
 #!/usr/bin/env bats
 
+# this one should fail as the file does not exist
+
 @test "simple-cat should output the content of the file" {
   run simple-cat.sh foofile
   [ "$status" -eq 0 ]
   [ "$output" = "foo" ]
 }
+
+# this one should work
 
 @test "simple-cat should output the content of the file" {
   run simple-cat.sh simple-echo-test.bats
