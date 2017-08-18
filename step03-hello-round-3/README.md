@@ -33,22 +33,22 @@ As this specification are more about how to deal with parameters, I've started a
 # file hello-world-parameters-test.bat
 #!/usr/bin/env bats
 
+@test "When no name is provided should output name is mandatory and exit with 1" {
+  run $BATS_TEST_DIRNAME/hello-world.sh
+  [ "$status" -eq 0 ]
+  [ "$output" = "No name provided. Name is mandatory!" ]
+}
+
 @test "When no parameter is provided should output the usage and exit with 1" {
   run $BATS_TEST_DIRNAME/hello-world.sh
   [ "$status" -eq 1 ]
   [ "$output" = "Usage: hello-world.sh <name>" ]
 }
-
-@test "When no name is provided should output name is mandatory and exit with 1" {
-  run $BATS_TEST_DIRNAME/hello-world.sh  Alice
-  [ "$status" -eq 0 ]
-  [ "$output" = "No name provided. Name is mandatory!" ]
-}
 ```
 
 Both tests failed. But the first one does not failed where expected. Can you see why ?
 
-The second test shoud fail on status check.
+The first test shoud fail on status check instead on output.
 
 There is often useful to check that everything fails before fixing the test. One of the issues with tests is that they might be written in such a way that they always pass.
 
@@ -65,6 +65,8 @@ $ bats step03-hello-round-3/hello-world-parameters-test.bats
 ```
 
 Now the test is fixed for checking for exit 1 in both case. Let's fix the code to pass the test.
+
+
 
 
 <br>
