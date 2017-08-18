@@ -14,16 +14,18 @@
   [ "$output" = "Usage: hello-world.sh <name>" ]
 }
 
+@test "When no parameter is provided should output the usage on second line" {
+  run $BATS_TEST_DIRNAME/hello-world.sh
+  echo "output=$output"
+  [ "${lines[0]}" = "Usage: hello-world.sh <name>" ]]
+}
+
+
 @test "When no parameter is provided should contain the usage" {
   run $BATS_TEST_DIRNAME/hello-world.sh
   #[ "$output" = "Usage: hello-world.sh <name>" ]
   [[ "$output" =~ "Usage: hello-world.sh <name>" ]]
 }
 
-
-@test "When no parameter is provided should output the usage on second line" {
-  run $BATS_TEST_DIRNAME/hello-world.sh
-  [ "${lines[1]}" = "Usage: hello-world.sh <name>" ]]
-}
 
 
