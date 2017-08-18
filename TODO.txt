@@ -65,3 +65,8 @@ TODO not installed
 
 TODO test of code snippets
 
+TODO test suite
+../bats/bin/bats  step00-basics
+
+
+

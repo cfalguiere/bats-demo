@@ -1,9 +1,12 @@
 # Bats basics
 
+
 ## What is Bats ?
 
-**Bats** stands for **Bash Automated Testing System**.
+When you're used to unit testing your code, writing shell script and maintaining a bunch of shell scripts might be very uncomfortable. Bats helps by providing a test tool similar to RSpec.
 
+
+**Bats** stands for **Bash Automated Testing System**.
 
 > Bats is a TAP-compliant testing framework for Bash. It provides a simple way to verify that the UNIX programs you write behave as expected.
 >
