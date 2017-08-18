@@ -15,7 +15,7 @@
   [ "$output" = "Usage: hello-world.sh <name>" ]
 }
 
-@test "When no parameter is provided should contain the usage" {
+@test "When no parameter is provided output should contain the usage" {
   run $BATS_TEST_DIRNAME/hello-world.sh
   #[ "$output" = "Usage: hello-world.sh <name>" ]
   [[ "$output" =~ "Usage: hello-world.sh <name>" ]]
