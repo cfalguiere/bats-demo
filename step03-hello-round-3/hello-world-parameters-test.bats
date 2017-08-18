@@ -18,8 +18,8 @@
 
 
 @test "inspect bats src" {
- ls /tmp/bats.*.src
- echo $$
+ srcname=$( /tmp/bats.*.src | head -1 )
+ cat $srcname
  [ 1 -eq 0 ]
 }
 
