@@ -18,8 +18,7 @@
 
 
 @test "inspect bats src" {
- srcname=$( /tmp/bats.*.src | head -1 )
- cat $srcname
+ ls  /tmp/bats.*.src | xargs -I{} cat {}
  [ 1 -eq 0 ]
 }
 
