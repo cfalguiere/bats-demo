@@ -2,6 +2,10 @@
 
 Now it's OK, what additionnal tests do I need ?
 
+> **focus of this section**
+> adding new tests
+> understand why tests are useful
+
 
 <br>
 
@@ -136,5 +140,5 @@ I can now demo my work and get feedback from users.
 
 ## What we have learned
 
-- why testing with different values is useful
-- how to find new tests
+> - why testing with different values is useful
+> - how to find new tests

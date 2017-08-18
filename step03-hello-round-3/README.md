@@ -2,6 +2,10 @@
 
 After the demo, user were happy with Hello World and new specificxations arose.
 
+> **focus of this section**
+> checking for error exit
+> checking for error message
+
 <br>
 
 ## Specifications for Round 3
@@ -85,5 +89,5 @@ $ bats step03-hello-round-3/hello-world-test.bats
 
 ## What we have learned
 
-- the need to ensure that a test is not always passing
-- how to test script error management
+> - the need to ensure that a test is not always passing
+> - how to test script error management

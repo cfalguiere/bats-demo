@@ -2,6 +2,10 @@
 
 Let's start with a very common scenario and build it with an Agile process
 
+> **focus of this section**
+> basic use of bats
+> how to debug
+
 <br>
 
 ## Specifications Round 1
@@ -170,6 +174,6 @@ $ bats step01-hello-round-1/hello-world-test.bats
 
 ## What we have learned
 
-- how to write a basic test
-- how to run a test
-- how to debug a test
+> - how to write a basic test
+> - how to run a test
+> - how to debug a test
