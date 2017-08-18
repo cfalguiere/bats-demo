@@ -75,3 +75,33 @@ Though it works fine for the last, it fails the first one. Guess why ?
 
 The trace of the third test show why. The space is now missing.
 
+After fixing the space the script is now
+
+```
+#!/bin/bash
+echo Hello$([ -z $1 ] || echo " $1")!
+```
+
+
+````
+$ bats step02-hello-round-2/hello-world-test.bats
+ ✓ should output Hello Alice!
+ ✓ should output Hello Jabberwock!
+ ✗ should output Hello Cheshire Cat! when names has many words
+   (in test file step02-hello-round-2/hello-world-test.bats, line 37)
+     `[ "$output" = "Hello Cheshire Cat!" ]' failed
+   output=/home/cfalguiere/projects/batsTest/bats-demo/step02-hello-round-2/hello-world.sh: line 2: [: Cheshire: binary operator expected
+   Hello Cheshire Cat!
+ ✓ should output Hello!
+
+5 tests, 2 failures
+````
+
+Same problem occurs on CLI. Weirdly enough, the output is correct, but there is an error message on the way.
+
+````
+
+$ /hello-world.sh "Cheshire Cat"
+./step02-hello-round-2/hello-world.sh: line 2: [: Cheshire: binary operator expected
+Hello Cheshire Cat!
+```
