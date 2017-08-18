@@ -51,5 +51,6 @@ As this specification are more about how to deal with parameters, I've started a
 ## What we have learned
 
 - how to test script error management
+- how to test multiple lines
 - how to organize tests in different files
 - how to run a test suite by listing the files or running the test folder
