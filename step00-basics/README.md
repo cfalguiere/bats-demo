@@ -11,7 +11,7 @@ Bats stands for Bash Automated Testing System.
 
 Bats is a github project which can be found here  [Bats project (github repository)](https://github.com/sstephenson/bats)
 
-I've found interessing resources listed at the end of this page. I've decided to make my own for two reasons
+I've found interessing resources listed at the end of this page. However I've decided to make my own for two reasons
 
 - gather all the resources I've found useful in one place
 - document some use cases I've found difficult to understand, especially if you're not an skilled shell programmer.
@@ -24,9 +24,11 @@ So let's go!
 Here is a very simple bats test
 
 
-file simple-echo-test.bats
 
 ```
+# file simple-echo-test.bats
+#!/usr/bin/env bats
+
 @test "simple-echo should output foo" {
   run simple-echo.sh  "foo"
   [ "$status" -eq 0 ]
@@ -50,8 +52,9 @@ Bats provide some helpers to ease testing. A typical bats test use the following
 - a function or program under test: for instance simple-script.sh  "foo"
 - some checks
 
-Checks are call to the [test bash command](http://manpages.ubuntu.com/manpages/xenial/man1/test.1.html).
-You may use whatever kind of check for instance [ -z "$varname" ] or [ -f "$filename" ] to check whether a var is empty or whether a file exists.
+These checks usually make use of the [test bash command](http://manpages.ubuntu.com/manpages/xenial/man1/test.1.html).
+
+You may use whatever kind of check you're used to, for instance [ -z "$varname" ] or [ -f "$filename" ] to check whether a var is empty or whether a file exists.
 
 Bats provide 3 variables holding the results of the function or program under test.
 
@@ -60,9 +63,9 @@ Bats provide 3 variables holding the results of the function or program under te
 - lines: an array consisting of each line of the output
 
 
-## Run the bats test
+## Run the Bats test
 
-Run this file and bats outputs a pretty test report
+Run this file and Bats outputs a pretty test report
 
 ```
 $ bats simple-echo-test.bats
@@ -71,7 +74,8 @@ $ bats simple-echo-test.bats
 1 tests, 0 failures
 ```
 
-This might tricky to analyse when running in an automated tool or CI tool. Bats provide a --tap option to produce a machine-readable report.
+
+This might tricky to analyse when running in an automated tool or CI tool. Hopefully, Bats provides a --tap option to produce a machine-readable report.
 
 ```
 $ bats --tap simple-echo-test.bats
@@ -85,12 +89,14 @@ ok 1 simple-echo should output foo
 
 ## Tests failuures
 
-When a test fail, bats show the output of the program and the error report.
+When a test fails, Bats shows the output of the program and an error report.
 
 
-file simple-cat-test.bats
 
 ```
+# file simple-cat-test.bats
+#!/usr/bin/env bats
+
 @test "simple-cat should output the content of the file" {
   run simple-cat.sh foofile
   [ "$status" -eq 0 ]
