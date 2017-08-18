@@ -16,10 +16,9 @@
   [ "$output" = "Usage: hello-world.sh <name>" ]
 }
 
-
 @test "inspect bats src" {
+  skip
   ls  /tmp/bats.*.src | xargs -I{} cat {}
-  echo "tmp dir $BATS_TMPDIR"
   [ 1 -eq 0 ]
 }
 
