@@ -2,7 +2,7 @@
 
 ## What is Bats ?
 
-*Bats* stands for *Bash Automated Testing System*.
+**Bats** stands for **Bash Automated Testing System**.
 
 
 > Bats is a TAP-compliant testing framework for Bash. It provides a simple way to verify that the UNIX programs you write behave as expected.
@@ -38,30 +38,30 @@ Here is a very simple Bats test
 
 ## Anatomy of a Bats test
 
-Bats test often follow the same pattern
+Bats tests often follow the  pattern described below
 
 
-_*Test block*_
+**_Test block_**
 
 
 A Bats test has the following structure
 
-- *@test*: this keyword tells bats that there is a test here
-- *a description*: for instance "simple-script should output foo"
-- *a function*: whatever code lies within curly braes { }
+- **@test**: this keyword tells Bats that there is a test here
+- **a description**: for instance "simple-script should output foo"
+- **a function**: whatever code lies within curly braes { }
 
 Bats will report success or failuure depending on the result of this function. You might use any kind of code. For instance, if the function only consists of the call to the script and the script fails, Bats will report a failure.
 
-A Bats test file may contain multiple @Test blocks
+A Bats test file may contain multiple _@test_ blocks
 
 
-_*Test function*_
+**_Test function_**
 
 A typical Bats test use the following pattern
 
-- _*run*_: an optional wrapper used to collect information
-- *a function or program under test*: for instance simple-script.sh  "foo"
-- *some checks*
+- **_run_**: an optional wrapper used to collect information
+- **a function or program under test**: for instance simple-script.sh  "foo"
+- **some checks**
 
 These checks are any command which result in true or false.
 A typical check makes use of the [test command](http://manpages.ubuntu.com/manpages/xenial/man1/test.1.html).
@@ -71,17 +71,17 @@ You may use whatever kind of check you're used to, for instance [ -z "$varname" 
 Keep in mind that this is a plain shell function. You may intialize variables or use conditional instructions if need be.
 
 
-_*run wrapper*_
+**_run wrapper_**
 
 Bats provides some helpers to ease testing.
 
 Run yields 3 variables upon execution of the function or program under test.
 
-- status: the exit code
-- output: the outputt of the functio or program. it collects stdout and stderr
-- lines: an array consisting of each line of the output
+- **status**: the exit code
+- **output**: the outputt of the functio or program. it collects stdout and stderr
+- **lines**: an array consisting of each line of the output
 
-These variables requires the use of _run_.
+These variables requires the use of the _run_ wrapper.
 
 
 ## Bats test execution
@@ -97,7 +97,7 @@ $ bats simple-echo-test.bats
 ```
 
 
-However, this report might be tricky to analyze when running in an automated tool or CI tool. Hopefully, Bats provides a --tap option.
+However, this report might be tricky to analyze when running in an automated tool or CI tool. Hopefully, Bats provides a _--tap_ option.
 
 ```
 $ bats --tap simple-echo-test.bats
@@ -105,16 +105,18 @@ $ bats --tap simple-echo-test.bats
 ok 1 simple-echo should output foo
 ```
 
-With this option Bats produce a formatted report
+With this option, Bats produce a formatted report
 
-- the first line shows the range of test numbers (for instance 1..4 when the file contains 4 tests)
-- each lines shows ok or not ok, the test number, the test description
+- the **first line** shows the range of test numbers (for instance 1..4 when the file contains 4 tests)
+- **each line** shows ok or not ok, the test number, the test description
 
 
 
 ## Test failuures report
 
+
 When a test fails, Bats shows the output of the program and an error report.
+
 
 For instance, let's write a simple script to print a file and call it with a wrong file
 
@@ -126,7 +128,7 @@ For instance, let's write a simple script to print a file and call it with a wro
 @test "simple-cat should output the content of the file" {
   run simple-cat.sh foofile
   [ "$status" -eq 0 ]
-  [ "$output" = "foo" ]
+  [ "${lines[0]}" = "foo" ]
 }
 
 ```
