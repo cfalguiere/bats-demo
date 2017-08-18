@@ -21,7 +21,7 @@
 
 # does it still wotk for composite names ?
 
-@test "should output Hello Cheshire Cat! when names has many words - v1" {
+@test "should output Hello Cheshire Cat! when names has many words - wrong version" {
   run $BATS_TEST_DIRNAME/hello-world.sh  Cheshire Cat
   [ "$status" -eq 0 ]
   [ "$output" = "Hello Cheshire Cat!" ]
@@ -29,7 +29,7 @@
 
 # The test was wrong. Let's fix the test
 
-@test "should output Hello Cheshire Cat! when names has many words - v2" {
+@test "should output Hello Cheshire Cat! when names has many words" {
   run $BATS_TEST_DIRNAME/hello-world.sh  "Cheshire Cat"
   [ "$status" -eq 0 ]
   [ "$output" = "Hello Cheshire Cat!" ]

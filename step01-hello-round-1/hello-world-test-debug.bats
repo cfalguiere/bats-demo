@@ -18,7 +18,6 @@
   echo "output=$output"
   [ "$status" -eq 0 ]
   [ "$output" = "Hello Alice!" ]
-  echo "after the checks"
 }
 
 ## remove run to prevent it from catching the output

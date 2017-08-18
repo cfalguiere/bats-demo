@@ -94,7 +94,7 @@ Add prints of the output to the test
 }
 ```
 
-For whatever reason Bats sometimes does not output errors
+For whatever reason Bats sometimes does not output errors on failure
 
 ````
 $ bats step01-hello-round-1/hello-world-test.bats
@@ -106,6 +106,8 @@ $ bats step01-hello-round-1/hello-world-test.bats
 
 1 test, 1 failure
 ````
+
+Be careful of adding the traces before the checks. The test will exit on [ "$status" -eq 0 ] and will never reach the code after the checks.
 
 <br>
 
@@ -153,4 +155,13 @@ If you forgot to give exec permissions, the next step will  be
      `[ "$status" -eq 0 ]' failed
    status=126
    output=/home/cfalguiere/projects/batsTest/bats/libexec/bats-exec-test: line 58: /home/cfalguiere/projects/batsTest/bats-demo/step01-hello-round-1/hello-world.sh: Permission denied
+```
+
+Now ot's OK!
+
+```
+$ bats step01-hello-round-1/hello-world-test.bats
+ ✓ should output Hello Alice!
+
+1 test, 0 failures
 ```
