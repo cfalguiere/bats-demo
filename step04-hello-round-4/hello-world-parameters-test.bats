@@ -10,6 +10,7 @@
 
 @test "When no parameter is provided should output the usage" {
   run $BATS_TEST_DIRNAME/hello-world.sh
+  echo "output=$output"
   [ "$output" = "Usage: hello-world.sh <name>" ]
 }
 
