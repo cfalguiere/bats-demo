@@ -19,6 +19,8 @@ I've found interessing resources listed at the end of this page. However I've de
 - document some use cases I've found difficult to understand, especially if you're not an skilled shell programmer.
 
 
+This document is an introduction to Bats basics. The following steps show Bats in action on a basic use case and show more advanced examples. But fot the time being let's run a very basic example.
+
 <br>
 
 **_So let's go!_**
