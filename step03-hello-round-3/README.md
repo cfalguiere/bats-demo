@@ -188,6 +188,71 @@ $ bats step03-hello-round-3/hello-world-parameters-test.bats
 
 Now let's implement the usage.
 
+The code now use a table and add error message for each test. If there are error messages it show all the errors
+
+````
+#!/bin/bash
+name=$1
+errors=()
+[[ -z $name ]] && errors+="No name provided. Name is mandatory!"
+[[ $# -ne 1 ]] && errors+="Usage: $0 <name>"
+[[ -z ${errors[@]} ]] || { for i in ${errors[@]}; do echo $i; done; exit 1; }
+
+echo "Hello $name!"
+````
+
+```
+cfalguiere@ip-172-31-30-150:~/projects/batsTest/bats-demo$ ../bats/bin/bats step03-hello-round-3/hello-world-parameters-test.bats
+ ✗ When no name is provided should output name is mandatory and exit with 1
+   (in test file step03-hello-round-3/hello-world-parameters-test.bats, line 11)
+     `[ "$output" = "No name provided. Name is mandatory!" ]' failed
+   output=No
+   name
+   provided.
+   Name
+   is
+   mandatory!Usage:
+   /home/cfalguiere/projects/batsTest/bats-demo/step03-hello-round-3/hello-world.sh
+   <name>
+ ✗ When no parameter is provided should output the usage and exit with 1
+   (in test file step03-hello-round-3/hello-world-parameters-test.bats, line 17)
+     `[ "$output" = "Usage: hello-world.sh <name>" ]' failed
+ - inspect bats src (skipped)
+
+3 tests, 2 failures, 1 skipped
+```
+
+Fixed into
+````
+#!/bin/bash
+name=$1
+errors=()
+[[ -z $name ]] && errors+="No name provided. Name is mandatory!"
+[[ $# -ne 1 ]] && errors+="Usage: $0 <name>"
+[[ -z ${errors[@]} ]] || { for i in "${errors[@]}"; do echo $i; done; exit 1; }
+
+echo "Hello $name!"
+````
+
+The text is no more split by words but both messages are on the same line.
+
+
+```
+cfalguiere@ip-172-31-30-150:~/projects/batsTest/bats-demo$ ../bats/bin/bats step03-hello-round-3/hello-world-parameters-test.bats
+ ✗ When no name is provided should output name is mandatory and exit with 1
+   (in test file step03-hello-round-3/hello-world-parameters-test.bats, line 11)
+     `[ "$output" = "No name provided. Name is mandatory!" ]' failed
+   output=No name provided. Name is mandatory!Usage: /home/cfalguiere/projects/batsTest/bats-demo/step03-hello-round-3/hello-world.sh <name>
+ ✗ When no parameter is provided should output the usage and exit with 1
+   (in test file step03-hello-round-3/hello-world-parameters-test.bats, line 17)
+     `[ "$output" = "Usage: hello-world.sh <name>" ]' failed
+ - inspect bats src (skipped)
+
+3 tests, 2 failures, 1 skipped
+```
+
+
+
 
 <br>
 

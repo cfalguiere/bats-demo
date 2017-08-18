@@ -19,16 +19,8 @@
   [ "$output" = "Hello Jabberwock!" ]
 }
 
-# does it still wotk for composite names ?
 
-@test "should output Hello Cheshire Cat! when name has many words - wrong version" {
-  run $BATS_TEST_DIRNAME/hello-world.sh  Cheshire Cat
-  echo "output=$output"
-  [ "$status" -eq 0 ]
-  [ "$output" = "Hello Cheshire Cat!" ]
-}
-
-# The test was wrong. Let's fix the test
+# Let's try with a composite name
 
 @test "should output Hello Cheshire Cat! when names has many words" {
   run $BATS_TEST_DIRNAME/hello-world.sh  "Cheshire Cat"
@@ -37,15 +29,21 @@
   [ "$output" = "Hello Cheshire Cat!" ]
 }
 
-# what if no name is provided  ?
-# what do I expect in that case ? this test requires some specification clarifications
-# Let's assume for a while it just skip the name
+# Name is mandatory
 
-@test "should output Hello!" {
+@test "When no name is provided should exit with 1" {
   run $BATS_TEST_DIRNAME/hello-world.sh
   echo "output=$output"
-  [ "$status" -eq 0 ]
-  [ "$output" = "Hello!" ]
+  [ "$status" -eq 1 ]
+}
+
+
+# Absence of name is an error
+
+@test "When no name is provided should output name is mandatory" {
+  run $BATS_TEST_DIRNAME/hello-world.sh
+  echo "output=$output"
+  [ "$output" = "No name provided. Name is mandatory!" ]
 }
 
 
