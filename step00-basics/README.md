@@ -10,7 +10,10 @@ Some other useful resources:
 - https://medium.com/@pimterry/testing-your-shell-scripts-with-bats-abfca9bdc5b9
 - http://blog.spike.cx/post/60548255435/testing-bash-scripts-with-bats
 
-These resources are great. I've decided to make my own to complement theses resources to gather information I found useful at the same place and explain some examples I've found difficul to understand especially if you're not an experienced shell programmer.
+These resources are great. I've decided to make my own for two reasons
+
+- gather all the resources I've found useful in one place
+- document some use cases I've found difficult to understand, especially if you're not an skilled shell programmer.
 
 So let's go!
 
@@ -85,7 +88,7 @@ When a test fail, bats show the output of the program and the error report.
 
 file simple-cat-test.bats
 
-````
+```
 @test "simple-cat should output the content of the file" {
   run simple-cat.sh foofile
   [ "$status" -eq 0 ]
