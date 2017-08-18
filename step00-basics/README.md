@@ -2,7 +2,7 @@
 
 ## What is Bats ?
 
-Bats stands for Bash Automated Testing System.
+*Bats* stands for *Bash Automated Testing System*.
 
 
 > Bats is a TAP-compliant testing framework for Bash. It provides a simple way to verify that the UNIX programs you write behave as expected.
@@ -22,7 +22,7 @@ So let's go!
 
 ## A very basic example of Bats test
 
-Here is a very simple bats test
+Here is a very simple Bats test
 
 
 ```
@@ -38,32 +38,51 @@ Here is a very simple bats test
 
 ## Anatomy of a Bats test
 
-A bats test has the following structure
+Bats test often follow the same pattern
 
-- @test: this keyword tells bats that there is a test here
-- a description: for instance "simple-script should output foo"
-- a function: whatever code lies within curly braes { }
 
-Bats will report success or failuure depending on the result of this function. You might use any kind of code. If you simply call a script and it fails, bats will report a failure.
+_*Test block*_
 
-Bats provides some helpers to ease testing. A typical bats test use the following pattern
 
-- run: a wrapper used to collect the output of the function or program under test
-- a function or program under test: for instance simple-script.sh  "foo"
-- some checks
+A Bats test has the following structure
 
-These checks are any command which result is true or false.
+- *@test*: this keyword tells bats that there is a test here
+- *a description*: for instance "simple-script should output foo"
+- *a function*: whatever code lies within curly braes { }
+
+Bats will report success or failuure depending on the result of this function. You might use any kind of code. For instance, if the function only consists of the call to the script and the script fails, Bats will report a failure.
+
+A Bats test file may contain multiple @Test blocks
+
+
+_*Test function*_
+
+A typical Bats test use the following pattern
+
+- _*run*_: an optional wrapper used to collect information
+- *a function or program under test*: for instance simple-script.sh  "foo"
+- *some checks*
+
+These checks are any command which result in true or false.
 A typical check makes use of the [test command](http://manpages.ubuntu.com/manpages/xenial/man1/test.1.html).
 
 You may use whatever kind of check you're used to, for instance [ -z "$varname" ] or [ -f "$filename" ] to check whether a variable is empty or whether a file exists.
 
-Bats provide 3 variables holding the results of the function or program under test.
+Keep in mind that this is a plain shell function. You may intialize variables or use conditional instructions if need be.
+
+
+_*run wrapper*_
+
+Bats provides some helpers to ease testing.
+
+Run yields 3 variables upon execution of the function or program under test.
 
 - status: the exit code
 - output: the outputt of the functio or program. it collects stdout and stderr
 - lines: an array consisting of each line of the output
 
-These variables requires the command to be run within the run wrapper.
+These variables requires the use of _run_.
+
 
 ## Bats test execution
 
@@ -112,6 +131,8 @@ For instance, let's write a simple script to print a file and call it with a wro
 
 ```
 
+Bats report the error reported by the script execution
+
 
 ```
 $ bats  test.bats
@@ -136,7 +157,7 @@ not ok 1 simple-cat should output the content of the file
 ```
 
 
-## Bats resouurces
+## Bats resources
 
 Bats project
 - [Bats project (github repository)](https://github.com/sstephenson/bats)
