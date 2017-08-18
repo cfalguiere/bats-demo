@@ -45,8 +45,33 @@ $ bats step02-hello-round-2/hello-world-test.bats
      `[ "$output" = "Hello!" ]' failed
    output=Hello !
 
+4 tests, 2 failures
 ```
 
 Third test is a false negative. The test should call hello-world.sh  "Cheshire Cat" in order to pass only one parameter.
 
 Fourth test is a true negative. As the variable is not checked, the space is always issued.
+
+Let's change the echo for "echo Hello$([ -z $1 ] || echo $1)!". When the parameter is empty it does nothing, otherwize it echoes the parameter
+
+```
+$ bats step02-hello-round-2/hello-world-test.bats
+ ✗ should output Hello Alice!
+   (in test file step02-hello-round-2/hello-world-test.bats, line 11)
+     `[ "$output" = "Hello Alice!" ]' failed
+ ✗ should output Hello Jabberwock!
+   (in test file step02-hello-round-2/hello-world-test.bats, line 19)
+     `[ "$output" = "Hello Jabberwock!" ]' failed
+ ✗ should output Hello Cheshire Cat! when names has many word
+   (in test file step02-hello-round-2/hello-world-test.bats, line 28)
+     `[ "$output" = "Hello Cheshire Cat!" ]' failed
+   output=HelloCheshire!
+ ✓ should output Hello!
+
+4 tests, 3 failures
+````
+
+Though it works fine for the last, it fails the first one. Guess why ?
+
+The trace of the third test show why. The space is now missing.
+

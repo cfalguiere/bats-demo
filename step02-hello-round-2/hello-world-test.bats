@@ -32,6 +32,7 @@
 
 @test "should output Hello Cheshire Cat! when names has many words" {
   run $BATS_TEST_DIRNAME/hello-world.sh  "Cheshire Cat"
+  echo "output=$output"
   [ "$status" -eq 0 ]
   [ "$output" = "Hello Cheshire Cat!" ]
 }
