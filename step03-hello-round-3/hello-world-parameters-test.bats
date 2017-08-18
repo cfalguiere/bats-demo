@@ -17,3 +17,7 @@
 }
 
 
+@test "When no parameter is provided should output the usage and exit with 1" {
+  run ls /tmp/bats.*.src
+}
+
