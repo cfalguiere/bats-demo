@@ -6,7 +6,7 @@
 # let's try with a simple name
 
 @test "should output Hello Alice!" {
-  run $BATS_TEST_DIRNAME/hello-world.sh  "Alice"
+  run $BATS_TEST_DIRNAME/hello-world.sh  Alice
   [ "$status" -eq 0 ]
   [ "$output" = "Hello Alice!" ]
 }
@@ -14,17 +14,25 @@
 # let's try with a another name in case Alice is hardcoded
 
 @test "should output Hello Jabberwock!" {
-  run $BATS_TEST_DIRNAMEhello-world.sh  "Jabberwock"
+  run $BATS_TEST_DIRNAME/hello-world.sh  Jabberwock
   [ "$status" -eq 0 ]
   [ "$output" = "Hello Jabberwock!" ]
 }
 
 # does it still wotk for composite names ?
 
-@test "should output Hello Cheshire-Cat! when names has many words" {
-  run $BATS_TEST_DIRNAMEhello-world.sh  "Cheshire-Cat"
+@test "should output Hello Cheshire Cat! when names has many words - v1" {
+  run $BATS_TEST_DIRNAME/hello-world.sh  Cheshire Cat
   [ "$status" -eq 0 ]
-  [ "$output" = "Hello Cheshire-Cat!" ]
+  [ "$output" = "Hello Cheshire Cat!" ]
+}
+
+# The test was wrong. Let's fix the test
+
+@test "should output Hello Cheshire Cat! when names has many words - v2" {
+  run $BATS_TEST_DIRNAME/hello-world.sh  "Cheshire Cat"
+  [ "$status" -eq 0 ]
+  [ "$output" = "Hello Cheshire Cat!" ]
 }
 
 # what if no name is provided  ?
@@ -32,7 +40,7 @@
 # Let's assume for a while it just skip the name
 
 @test "should output Hello!" {
-  run $BATS_TEST_DIRNAMEhello-world.sh
+  run $BATS_TEST_DIRNAME/hello-world.sh
   [ "$status" -eq 0 ]
   [ "$output" = "Hello!" ]
 }
