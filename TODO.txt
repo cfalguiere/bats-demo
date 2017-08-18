@@ -60,3 +60,8 @@ simple script with error passer un nom de fichier qui existe ou pas
 simple-cat
 
 TODO simple script simple-echo
+
+TODO not installed
+
+TODO test of code snippets
+
