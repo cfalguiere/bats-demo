@@ -25,6 +25,7 @@ I've found interessing resources listed at the end of this page. However I've de
 <br>
 
 <br>
+
 ## A very basic example of Bats test
 
 Here is a very simple Bats test
@@ -42,11 +43,13 @@ Here is a very simple Bats test
 ```
 
 <br>
+
 ## Anatomy of a Bats test
 
 Bats tests often follow the  pattern described below
 
 <br>
+
 ### **_Test block_**
 
 
@@ -61,6 +64,7 @@ Bats will report success or failuure depending on the result of this function. Y
 A Bats test file may contain multiple _@test_ blocks
 
 <br>
+
 ### **_Test function_**
 
 A typical Bats test use the following pattern
@@ -77,6 +81,7 @@ You may use whatever kind of check you're used to, for instance [ -z "$varname" 
 Keep in mind that this is a plain shell function. You may intialize variables or use conditional instructions if need be.
 
 <br>
+
 ### **_run wrapper_**
 
 Bats provides some helpers to ease testing.
@@ -90,6 +95,7 @@ Run yields 3 variables upon execution of the function or program under test.
 These variables requires the use of the _run_ wrapper.
 
 <br>
+
 ## Bats test execution
 
 When you run the test file, Bats outputs a pretty human readable test report.
@@ -118,6 +124,7 @@ With this option, Bats produce a formatted report
 
 
 <br>
+
 ## Test failuures report
 
 
@@ -165,6 +172,7 @@ not ok 1 simple-cat should output the content of the file
 ```
 
 <br>
+
 ## Bats resources
 
 Bats project
