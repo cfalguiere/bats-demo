@@ -18,12 +18,13 @@
   echo "output=$output"
   [ "$status" -eq 0 ]
   [ "$output" = "Hello Alice!" ]
+  echo "after the checks"
 }
 
 ## remove run to prevent it from catching the output
 
 @test "Debug-2 - should output Hello Alice!" {
-   $BATS_TEST_DIRNAME/hello-world.sh  Alice
+  $BATS_TEST_DIRNAME/hello-world.sh  Alice
   [ "$status" -eq 0 ]
   [ "$output" = "Hello Alice!" ]
 }

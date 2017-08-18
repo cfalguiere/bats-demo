@@ -7,6 +7,8 @@
 
 @test "should output Hello Alice!" {
   run $BATS_TEST_DIRNAME/hello-world.sh  Alice
+  echo "status=$status"
+  echo "output=$output"
   [ "$status" -eq 0 ]
   [ "$output" = "Hello Alice!" ]
 }
