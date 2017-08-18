@@ -6,6 +6,7 @@
 
 @test "When no name is provided should output name is mandatory and exit with 1" {
   run $BATS_TEST_DIRNAME/hello-world.sh
+  echo "output=$output"
   [ "$status" -eq 1 ]
   [ "$output" = "No name provided. Name is mandatory!" ]
 }
