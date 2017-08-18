@@ -46,10 +46,32 @@ As this specification are more about how to deal with parameters, I've started a
 }
 ```
 
+Both tests failed. But the first one does not failed where expected. Can you see why ?
+
+The second test shoud fail on status check.
+
+There is often useful to check that everything fails before fixing the test. One of the issues with tests is that they might be written in such a way that they always pass.
+
+```
+$ bats step03-hello-round-3/hello-world-parameters-test.bats
+ ✗ When no name is provided should output name is mandatory and exit with 1
+   (in test file step03-hello-round-3/hello-world-parameters-test.bats, line 15)
+     `[ "$output" = "No name provided. Name is mandatory!" ]' failed
+ ✗ When no parameter is provided should output the usage and exit with 1
+   (in test file step03-hello-round-3/hello-world-parameters-test.bats, line 8)
+     `[ "$status" -eq 1 ]' failed
+
+2 tests, 2 failures
+```
+
+Now the test is fixed for checking for exit 1 in both case. Let's fix the code to pass the test.
+
+
 <br>
 
 ## What we have learned
 
+- the need to ensure that a test is not always passing
 - how to test script error management
 - how to test multiple lines
 - how to organize tests in different files

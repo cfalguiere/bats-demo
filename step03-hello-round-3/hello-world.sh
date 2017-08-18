@@ -1,4 +1,4 @@
 #!/bin/bash
-#echo Hello$([ -z $1 ] || echo $1)!
-#echo Hello$([ -z $1 ] || echo " $1")!
-echo Hello$([ -z "$1" ] || echo " $1")!
+name=$1
+[[ -z $name ]] && { echo "No name provided. Name is mandatory!"; exit 1 }
+echo "Hello $name!"
