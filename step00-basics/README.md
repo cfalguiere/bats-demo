@@ -1,5 +1,7 @@
 # Bats basics
 
+## What is Bats ?
+
 Bats stands for Bash Automated Testing System.
 
 
@@ -7,9 +9,8 @@ Bats stands for Bash Automated Testing System.
 >
 >A Bats test file is a Bash script with special syntax for defining test cases. Under the hood, each test case is just a function with a description.
 >
->-- Bats project
+>-- [Bats project (github repository)](https://github.com/sstephenson/bats)
 
-Bats is a github project which can be found here  [Bats project (github repository)](https://github.com/sstephenson/bats)
 
 I've found interessing resources listed at the end of this page. However I've decided to make my own for two reasons
 
@@ -19,10 +20,9 @@ I've found interessing resources listed at the end of this page. However I've de
 
 So let's go!
 
-## A very simple example of bats test
+## A very basic example of Bats test
 
 Here is a very simple bats test
-
 
 
 ```
@@ -36,7 +36,7 @@ Here is a very simple bats test
 }
 ```
 
-### test code description
+## Anatomy of a Bats test
 
 A bats test has the following structure
 
@@ -46,15 +46,16 @@ A bats test has the following structure
 
 Bats will report success or failuure depending on the result of this function. You might use any kind of code. If you simply call a script and it fails, bats will report a failure.
 
-Bats provide some helpers to ease testing. A typical bats test use the following pattern
+Bats provides some helpers to ease testing. A typical bats test use the following pattern
 
 - run: a wrapper used to collect the output of the function or program under test
 - a function or program under test: for instance simple-script.sh  "foo"
 - some checks
 
-These checks usually make use of the [test bash command](http://manpages.ubuntu.com/manpages/xenial/man1/test.1.html).
+These checks are any command which result is true or false.
+A typical check makes use of the [test command](http://manpages.ubuntu.com/manpages/xenial/man1/test.1.html).
 
-You may use whatever kind of check you're used to, for instance [ -z "$varname" ] or [ -f "$filename" ] to check whether a var is empty or whether a file exists.
+You may use whatever kind of check you're used to, for instance [ -z "$varname" ] or [ -f "$filename" ] to check whether a variable is empty or whether a file exists.
 
 Bats provide 3 variables holding the results of the function or program under test.
 
@@ -62,10 +63,12 @@ Bats provide 3 variables holding the results of the function or program under te
 - output: the outputt of the functio or program. it collects stdout and stderr
 - lines: an array consisting of each line of the output
 
+These variables requires the command to be run within the run wrapper.
 
-### Bats test execution
+## Bats test execution
 
-Run this file and Bats outputs a pretty test report
+When you run the test file, Bats outputs a pretty human readable test report.
+
 
 ```
 $ bats simple-echo-test.bats
@@ -75,7 +78,7 @@ $ bats simple-echo-test.bats
 ```
 
 
-This might tricky to analyse when running in an automated tool or CI tool. Hopefully, Bats provides a --tap option to produce a machine-readable report.
+However, this report might be tricky to analyze when running in an automated tool or CI tool. Hopefully, Bats provides a --tap option.
 
 ```
 $ bats --tap simple-echo-test.bats
@@ -83,14 +86,18 @@ $ bats --tap simple-echo-test.bats
 ok 1 simple-echo should output foo
 ```
 
+With this option Bats produce a formatted report
+
 - the first line shows the range of test numbers (for instance 1..4 when the file contains 4 tests)
 - each lines shows ok or not ok, the test number, the test description
 
 
-### tests failuures
+
+## Test failuures report
 
 When a test fails, Bats shows the output of the program and an error report.
 
+For instance, let's write a simple script to print a file and call it with a wrong file
 
 
 ```
@@ -117,7 +124,8 @@ $ bats  test.bats
 ```
 
 
-Bats run with TAP option which is easier to use in a program
+Bats with TAP option which makes it easier to use in a CI tool
+
 ```
 $ /bats --tap  simple-cat-test.bats
 1..1
@@ -141,6 +149,6 @@ Some other useful resources:
 - https://medium.com/@pimterry/testing-your-shell-scripts-with-bats-abfca9bdc5b9
 - http://blog.spike.cx/post/60548255435/testing-bash-scripts-with-bats
 
-Thanks to authors of all these posts where I found useful examples and explanations.
+Thanks to the authors of Bats and all of these posts where I found useful examples and explanations.
 
 
