@@ -75,9 +75,119 @@ name=$1
 echo "Hello $name!"
 ```
 
+```
 cfalguiere@ip-172-31-30-150:~/projects/batsTest/bats-demo$ ../bats/bin/bats step03-hello-round-3/hello-world-parameters-test.bats
 /tmp/bats.26241.src: line 6: test: When no name is provided should output name is mandatory and exit with 1: unary operator expected
 cf
+````
+
+What is this /tmp/bats.26241.src ?
+
+Bats generates a script for each bats file. This file is located in /tmp/bats.an_id.src.src
+
+
+Here is a trick to print out this script.
+
+```
+@test "inspect bats src" {
+  ls  /tmp/bats.*.src | xargs -I{} cat {}
+  [ 1 -eq 0 ]
+}
+```
+
+An an example of this script
+
+```
+ ✗ inspect bats src
+   (in test file step03-hello-round-3/hello-world-parameters-test.bats, line 22)
+     `[ 1 -eq 0 ]' failed
+   #!/usr/bin/env bats
+
+   ## This test assumes that the script under test lies in the same folder as the test
+   ## $BATS_TEST_DIRNAME is one of the environment variables provided by Bats
+
+
+   test_When_no_name_is_provided_should_output_name_is_mandatory_and_exit_with_1() { bats_test_begin "When no name is provided should output name is mandatory and exit with 1" 7;
+     run $BATS_TEST_DIRNAME/hello-world.sh
+     [ "$status" -eq 1 ]
+     [ "$output" = "No name provided. Name is mandatory!" ]
+   }
+
+   test_When_no_parameter_is_provided_should_output_the_usage_and_exit_with_1() { bats_test_begin "When no parameter is provided should output the usage and exit with 1" 13;
+     run $BATS_TEST_DIRNAME/hello-world.sh
+     [ "$status" -eq 1 ]
+     [ "$output" = "Usage: hello-world.sh <name>" ]
+   }
+
+
+   test_inspect_bats_src() { bats_test_begin "inspect bats src" 20;
+     ls  /tmp/bats.*.src | xargs -I{} cat {}
+     [ 1 -eq 0 ]
+   }
+
+
+   bats_test_function test_When_no_name_is_provided_should_output_name_is_mandatory_and_exit_with_1
+   bats_test_function test_When_no_parameter_is_provided_should_output_the_usage_and_exit_with_1
+   bats_test_function test_inspect_bats_src
+````
+
+The problem was that the first @ was unintentionaly removed.
+When the @ in @test were missing the generated file was wrong and resulted in errors.
+
+
+By the way, Bats also sets
+
+   BATS_CWD=/home/cfalguiere/projects/batsTest/bats-demo
+   BATS_PREFIX=/home/cfalguiere/projects/batsTest/bats
+
+
+I will skip the inspect test later on.
+
+````
+@test "inspect bats src" {
+  skip
+  ls  /tmp/bats.*.src | xargs -I{} cat {}
+  [ 1 -eq 0 ]
+}
+```
+
+But the test still fail.
+
+```
+$ bats step03-hello-round-3/hello-world-parameters-test.bats
+ ✗ When no name is provided should output name is mandatory and exit with 1
+   (in test file step03-hello-round-3/hello-world-parameters-test.bats, line 9)
+     `[ "$status" -eq 1 ]' failed
+ ✗ When no parameter is provided should output the usage and exit with 1
+   (in test file step03-hello-round-3/hello-world-parameters-test.bats, line 15)
+     `[ "$status" -eq 1 ]' failed
+ - inspect bats src (skipped)
+````
+
+After some checks in the documentation, the script need be changed as shown below.
+```
+#!/bin/bash
+name=$1
+#[[ -z $name ]] && { echo "No name provided. Name is mandatory!"; exit 1 }
+[[ -z $name ]] && { echo "No name provided. Name is mandatory!"; exit 1; }
+echo "Hello $name!"
+````
+
+It fixes the first test.
+
+```
+$ bats step03-hello-round-3/hello-world-parameters-test.bats
+ ✓ When no name is provided should output name is mandatory and exit with 1
+ ✗ When no parameter is provided should output the usage and exit with 1
+   (in test file step03-hello-round-3/hello-world-parameters-test.bats, line 16)
+     `[ "$output" = "Usage: hello-world.sh <name>" ]' failed
+ - inspect bats src (skipped)
+
+3 tests, 1 failure, 1 skipped
+````
+
+Now let's implement the usage.
+
 
 <br>
 
