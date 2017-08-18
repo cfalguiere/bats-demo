@@ -1,2 +1,2 @@
 #!/bin/bash
-echo Hello $1!
+echo Hello $([ -z $1 ] && $1) !
