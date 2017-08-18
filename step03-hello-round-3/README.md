@@ -66,8 +66,18 @@ $ bats step03-hello-round-3/hello-world-parameters-test.bats
 
 Now the test is fixed for checking for exit 1 in both case. Let's fix the code to pass the test.
 
+I changed the script for the code below
 
+```
+#!/bin/bash
+name=$1
+[[ -z $name ]] && { echo "No name provided. Name is mandatory!"; exit 1 }
+echo "Hello $name!"
+```
 
+cfalguiere@ip-172-31-30-150:~/projects/batsTest/bats-demo$ ../bats/bin/bats step03-hello-round-3/hello-world-parameters-test.bats
+/tmp/bats.26241.src: line 6: test: When no name is provided should output name is mandatory and exit with 1: unary operator expected
+cf
 
 <br>
 
