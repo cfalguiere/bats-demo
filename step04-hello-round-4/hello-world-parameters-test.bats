@@ -9,6 +9,7 @@
 }
 
 @test "When no parameter is provided should output the usage" {
+  skip
   run $BATS_TEST_DIRNAME/hello-world.sh
   echo "output=$output"
   [ "$output" = "Usage: hello-world.sh <name>" ]
@@ -22,9 +23,15 @@
 
 
 @test "When no parameter is provided should contain the usage" {
+  skip
   run $BATS_TEST_DIRNAME/hello-world.sh
   #[ "$output" = "Usage: hello-world.sh <name>" ]
   [[ "$output" =~ "Usage: hello-world.sh <name>" ]]
+}
+
+@test "inspect bats src" {
+  ls  /tmp/bats.*.src | xargs -I{} cat {}
+  [ 1 -eq 0 ]
 }
 
 
