@@ -7,7 +7,7 @@ setup() {
 }
 
 @test "When no name is provided should output name is mandatory and exit with 1" {
-  cat /tmp/bats.$$.src
+  ls /tmp/bats.*.src
   run $BATS_TEST_DIRNAME/hello-world.sh
   [ "$status" -eq 1 ]
   [ "$output" = "No name provided. Name is mandatory!" ]
