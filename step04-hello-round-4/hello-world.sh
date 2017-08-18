@@ -7,7 +7,7 @@ name=$1
 [[ -z $name ]] && errors+="No name provided. Name is mandatory!"
 #[[ -z $name ]] && errors+=("No name provided. Name is mandatory!")
 
-[[ -z ${errors[@]} ]] || { for i in ${errors[@]}; do echo "$i"; done; exit 1; }
-#[[ -z ${errors[@]} ]] || { for i in "${errors[@]}"; do echo $i; done; exit 1; }
+#[[ -z ${errors[@]} ]] || { for i in ${errors[@]}; do echo "$i"; done; exit 1; }
+[[ -z ${errors[@]} ]] || { for i in "${errors[@]}"; do echo $i; done; exit 1; }
 
 echo "Hello $name!"
