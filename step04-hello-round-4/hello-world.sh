@@ -1,7 +1,9 @@
 #!/bin/bash
 errors=()
+script_name=$(readlink -f $0 | xargs basename)
 #[[ $# -ne 1 ]] && errors+="Usage: $0 <name>"
-[[ $# -ne 1 ]] && errors+=("Usage: $0 <name>")
+#[[ $# -ne 1 ]] && errors+=("Usage: $0 <name>")
+[[ $# -ne 1 ]] && errors+=("Usage: $script_name <name>")
 
 name=$1
 #[[ -z $name ]] && errors+="No name provided. Name is mandatory!"
