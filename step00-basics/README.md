@@ -19,7 +19,7 @@ I've found interessing resources listed at the end of this page. However I've de
 
 So let's go!
 
-# A very simple example of bats test
+## A very simple example of bats test
 
 Here is a very simple bats test
 
@@ -36,7 +36,7 @@ Here is a very simple bats test
 }
 ```
 
-## test code description
+### test code description
 
 A bats test has the following structure
 
@@ -63,7 +63,7 @@ Bats provide 3 variables holding the results of the function or program under te
 - lines: an array consisting of each line of the output
 
 
-## Run the Bats test
+### Bats test execution
 
 Run this file and Bats outputs a pretty test report
 
@@ -87,7 +87,7 @@ ok 1 simple-echo should output foo
 - each lines shows ok or not ok, the test number, the test description
 
 
-## Tests failuures
+### tests failuures
 
 When a test fails, Bats shows the output of the program and an error report.
 
@@ -128,7 +128,7 @@ not ok 1 simple-cat should output the content of the file
 ```
 
 
-# Bats resouurces
+## Bats resouurces
 
 Bats project
 - [Bats project (github repository)](https://github.com/sstephenson/bats)
