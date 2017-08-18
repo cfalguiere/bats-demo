@@ -4,7 +4,7 @@
 ## $BATS_TEST_DIRNAME is one of the environment variables provided by Bats
 
 setup() {
-cat /tmp/bats.26241.src
+cat /tmp/bats.$$.src
 }
 
 @test "When no name is provided should output name is mandatory and exit with 1" {
