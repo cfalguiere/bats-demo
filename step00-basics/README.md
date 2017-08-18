@@ -161,7 +161,7 @@ $ bats  test.bats
      `simple-cat.sh  foofile'  failed
    cat: foo: No such file or directory
 
-1 tests, 1 failures
+1 test, 1 failure
 ```
 
 
