@@ -12,7 +12,7 @@
 
 ## echo the outputs of the script
 
-@test "should output Hello Alice!" {
+@test "Debug-1 - should output Hello Alice!" {
   run $BATS_TEST_DIRNAME/hello-world.sh  Alice
   echo "status=$status"
   echo "output=$output"
@@ -22,7 +22,7 @@
 
 ## remove run to prevent it from catching the output
 
-@test "should output Hello Alice!" {
+@test "Debug-2 - should output Hello Alice!" {
    $BATS_TEST_DIRNAME/hello-world.sh  Alice
   [ "$status" -eq 0 ]
   [ "$output" = "Hello Alice!" ]
