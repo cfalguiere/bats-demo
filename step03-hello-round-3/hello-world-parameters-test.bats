@@ -19,5 +19,6 @@
 
 @test "inspect bats src" {
  ls /tmp/bats.*.src
+ [ 1 -eq 0 ]
 }
 
