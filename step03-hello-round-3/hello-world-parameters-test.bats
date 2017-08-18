@@ -4,8 +4,8 @@
 ## $BATS_TEST_DIRNAME is one of the environment variables provided by Bats
 
 test "When no name is provided should output name is mandatory and exit with 1" {
+  cat /tmp/bats.$$.src
   run $BATS_TEST_DIRNAME/hello-world.sh
-  cat /tmp/bats.26241.src
   echo "status=$status"
   echo "output=$output"
   [ "$status" -eq 1 ]
