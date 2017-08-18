@@ -3,8 +3,11 @@
 ## This test assumes that the script under test lies in the same folder as the test
 ## $BATS_TEST_DIRNAME is one of the environment variables provided by Bats
 
-test "When no name is provided should output name is mandatory and exit with 1" {
+setup() {
   cat /tmp/bats.$$.src
+}
+
+test "When no name is provided should output name is mandatory and exit with 1" {
   run $BATS_TEST_DIRNAME/hello-world.sh
   echo "status=$status"
   echo "output=$output"
