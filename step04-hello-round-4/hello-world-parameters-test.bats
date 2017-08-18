@@ -18,7 +18,7 @@
 @test "When no parameter is provided should output the usage on first line" {
   run $BATS_TEST_DIRNAME/hello-world.sh
   echo "line_0=${lines[0]}"
-  [ "${lines[0]}" = "Usage: hello-world.sh <name>" ]]
+  [ "${lines[0]}" = "Usage: hello-world.sh <name>" ]
 }
 
 
@@ -29,10 +29,10 @@
   [[ "$output" =~ "Usage: hello-world.sh <name>" ]]
 }
 
-@test "inspect bats src" {
-  ls  /tmp/bats.*.src | xargs -I{} cat {}
-  [ 1 -eq 0 ]
-}
+#@test "inspect bats src" {
+#  ls  /tmp/bats.*.src | xargs -I{} cat {}
+#  [ 1 -eq 0 ]
+#}
 
 
 
