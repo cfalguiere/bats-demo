@@ -1,11 +1,24 @@
 # Bats basics
 
-[Bats project (github repository)](https://github.com/sstephenson/bats)
-[Bats prokect's Wiki](https://github.com/sstephenson/bats/wiki)
-[Bats manual (Ubuntu version)](http://manpages.ubuntu.com/manpages/yakkety/man7/bats.7.html)
+Bats stands for Bash Automated Testing System.
+
+
+From Bats project:
+
+```
+Bats is a TAP-compliant testing framework for Bash. It provides a simple way to verify that the UNIX programs you write behave as expected.
+
+A Bats test file is a Bash script with special syntax for defining test cases. Under the hood, each test case is just a function with a description.
+```
+
+Bats project and man page
+
+- [Bats project (github repository)](https://github.com/sstephenson/bats)
+- [Bats prokect's Wiki](https://github.com/sstephenson/bats/wiki)
 
 Some other useful resources:
 
+- [Bats manual (Ubuntu version)](http://manpages.ubuntu.com/manpages/yakkety/man7/bats.7.html)
 - https://blog.engineyard.com/2014/bats-test-command-line-tools
 - https://medium.com/@pimterry/testing-your-shell-scripts-with-bats-abfca9bdc5b9
 - http://blog.spike.cx/post/60548255435/testing-bash-scripts-with-bats
@@ -14,6 +27,7 @@ These resources are great. I've decided to make my own for two reasons
 
 - gather all the resources I've found useful in one place
 - document some use cases I've found difficult to understand, especially if you're not an skilled shell programmer.
+
 
 So let's go!
 
