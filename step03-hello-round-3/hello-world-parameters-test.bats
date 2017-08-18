@@ -19,7 +19,7 @@
 
 @test "inspect bats src" {
   ls  /tmp/bats.*.src | xargs -I{} cat {}
-  env
+  echo "tmp dir $BATS_TMPDIR"
   [ 1 -eq 0 ]
 }
 
