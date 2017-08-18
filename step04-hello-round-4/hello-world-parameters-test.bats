@@ -14,9 +14,9 @@
   [ "$output" = "Usage: hello-world.sh <name>" ]
 }
 
-@test "When no parameter is provided should output the usage on second line" {
+@test "When no parameter is provided should output the usage on first line" {
   run $BATS_TEST_DIRNAME/hello-world.sh
-  echo "output=$output"
+  echo "line_0=${lines[0]}"
   [ "${lines[0]}" = "Usage: hello-world.sh <name>" ]]
 }
 
