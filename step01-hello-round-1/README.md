@@ -165,3 +165,11 @@ $ bats step01-hello-round-1/hello-world-test.bats
 
 1 test, 0 failures
 ```
+
+<br>
+
+## What we have learned
+
+- how to write a basic test
+- how to run a test
+- how to debug a test
