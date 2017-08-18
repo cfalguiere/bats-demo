@@ -48,6 +48,32 @@ The new test file contains the lines below
 }
 ```
 
+The first test is fine but it fails the second check because the code has not been fixed yet.
+
+```
+$ bats step04-hello-round-4/hello-world-parameters-test.bats
+ ✓ When no parameter is provided should exit with 1
+ ✗ When no parameter is provided should output the usage
+   (in test file step04-hello-round-4/hello-world-parameters-test.bats, line 13)
+     `[ "$output" = "Usage: hello-world.sh <name>" ]' failed
+
+2 tests, 1 failures
+```
+
+Here is the script rewritten to allow multiple checks.
+
+````
+#!/bin/bash
+errors=()
+[[ $# -ne 1 ]] && errors+="Usage: $0 <name>"
+
+name=$1
+[[ -z $name ]] && errors+="No name provided. Name is mandatory!"
+
+[[ -z ${errors[@]} ]] || { for i in ${errors[@]}; do echo "$i"; done; exit 1; }
+
+echo "Hello $name!"
+`````
 
 
 
