@@ -11,6 +11,7 @@
 >
 >-- [Bats project (github repository)](https://github.com/sstephenson/bats)
 
+<br>
 
 I've found interessing resources listed at the end of this page. However I've decided to make my own for two reasons
 
@@ -18,8 +19,12 @@ I've found interessing resources listed at the end of this page. However I've de
 - document some use cases I've found difficult to understand, especially if you're not an skilled shell programmer.
 
 
-So let's go!
+<br>
 
+**_So let's go!_**
+<br>
+
+<br>
 ## A very basic example of Bats test
 
 Here is a very simple Bats test
@@ -36,12 +41,13 @@ Here is a very simple Bats test
 }
 ```
 
+<br>
 ## Anatomy of a Bats test
 
 Bats tests often follow the  pattern described below
 
-
-**_Test block_**
+<br>
+### **_Test block_**
 
 
 A Bats test has the following structure
@@ -54,8 +60,8 @@ Bats will report success or failuure depending on the result of this function. Y
 
 A Bats test file may contain multiple _@test_ blocks
 
-
-**_Test function_**
+<br>
+### **_Test function_**
 
 A typical Bats test use the following pattern
 
@@ -70,8 +76,8 @@ You may use whatever kind of check you're used to, for instance [ -z "$varname" 
 
 Keep in mind that this is a plain shell function. You may intialize variables or use conditional instructions if need be.
 
-
-**_run wrapper_**
+<br>
+### **_run wrapper_**
 
 Bats provides some helpers to ease testing.
 
@@ -83,7 +89,7 @@ Run yields 3 variables upon execution of the function or program under test.
 
 These variables requires the use of the _run_ wrapper.
 
-
+<br>
 ## Bats test execution
 
 When you run the test file, Bats outputs a pretty human readable test report.
@@ -111,7 +117,7 @@ With this option, Bats produce a formatted report
 - **each line** shows ok or not ok, the test number, the test description
 
 
-
+<br>
 ## Test failuures report
 
 
@@ -158,7 +164,7 @@ not ok 1 simple-cat should output the content of the file
 # cat: foo: No such file or directory
 ```
 
-
+<br>
 ## Bats resources
 
 Bats project
