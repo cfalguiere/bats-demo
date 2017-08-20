@@ -69,7 +69,7 @@ USAGE_MESSAGE=(
 "Usages:"
 "    hello-world.sh [-v] -n name : output Hello name!"
 "    hello-world.sh -h : show the help"
-" Parameters :"
+"Parameters :"
 "    -v : increase verbosity"
 "    -n name : indicates the name of the person to say hello to"
 "    -h : display the usage"
@@ -109,6 +109,36 @@ Existing tests have been altered to use the array.
 ```
 
 Tests should fail as code as not been modified. But let's give a try.
+
+```
+$ bats step06-hello-round-6/hello-world-parameters-test.bats step06-hello-round-6/hello-world-usage-test.bats
+ ✗ When no parameter is provided output should contain the usage
+   (in test file step06-hello-round-6/hello-world-parameters-test.bats, line 12)
+     `[[ "$output" =~ "$USAGE_MESSAGE"  ]]' failed
+ ✗ When no parameter is provided should output the usage on first line
+   (in test file step06-hello-round-6/hello-world-parameters-test.bats, line 19)
+     `[ "${lines[0]}" = "USAGE_MESSAGE" ]' failed
+   line_0=Usage: hello-world.sh [-v] -n name
+ ✓ When no parameter is provided should exit with 1
+ ✗ On -h should output the usage
+   (in test file step06-hello-round-6/hello-world-usage-test.bats, line 21)
+     `[ "${#lines[@]}" -eq 7 ]' failed
+   output=/home/cfalguiere/projects/batsTest/bats-demo/step06-hello-round-6/hello-world.sh: illegal option -- h
+   No name provided. Name is mandatory!
+ ✓ On -h should exit with 0
+
+5 tests, 3 failures
+```
+
+It make sense. Tests 1 and 2 fail because the use has not been changed and  test 4 fails because -h is code supported by the script yet.
+
+Let's change the code now.
+
+Usage will be triggered at least at two different places : on -h and upon errors. I would make it a function.
+
+But how can I test the function ?
+
+As a shell command. The fonction has to be imported in bats. source it not useful. Bats provided the load verb to make the function available to the tests.
 
 
 

@@ -7,11 +7,27 @@ USAGE_MESSAGE=(
 "Usages:"
 "    hello-world.sh [-v] -n name : output Hello name!"
 "    hello-world.sh -h : show the help"
-" Parameters :"
+"Parameters :"
 "    -v : increase verbosity"
 "    -n name : indicates the name of the person to say hello to"
 "    -h : display the usage"
 )
+
+# load functions from the script under test
+
+load $BATS_TEST_DIRNAME/hello-world.sh
+
+# check the usage function
+
+@test "On -h should output the usage" {
+  run usage
+  echo "output=${output}"
+  [ "${#lines[@]}" -eq 7 ]
+  for i in {0..7}; do
+    [ "${lines[$i]}" = "${USAGE_MESSAGE[$i]}" ]
+  done
+}
+
 
 # check the usage for presence and check every line
 

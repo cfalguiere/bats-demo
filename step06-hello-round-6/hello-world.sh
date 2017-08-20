@@ -1,18 +1,34 @@
 #!/bin/bash
+
+function usage() {
+   echo "Usages:"
+   echo "    hello-world.sh [-v] -n name : output Hello name!"
+   echo "    hello-world.sh -h : show the help"
+   echo "Parameters :"
+   echo "    -v : increase verbosity"
+   echo "    -n name : indicates the name of the person to say hello to"
+   echo "    -h : display the usage"
+}
+
 errors=()
 script_name=$(readlink -f $0 | xargs basename)
-[[ $# -eq 0 ]] && errors+=("Usage: $script_name [-v] -n name")
+#[[ $# -eq 0 ]] && errors+=("Usage: $script_name [-v] -n name")
+[[ $# -eq 0 ]] && usage
 
 # read arguments
 #
 #name=$1
 name=
 verbosity=0
-while getopts "vn:" opt; do
+while getopts "vhn:" opt; do
   case $opt in
     v)
       let verbosity++
       echo "verbose mode is on"
+      ;;
+    h)
+      usage
+      exit
       ;;
     n)
       name=$OPTARG
