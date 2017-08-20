@@ -4,5 +4,5 @@ source $BATS_TEST_DIRNAME/hello-world-functions.sh
 
 function log_info_test() {
   msg="this is a test" \
-  log_info()
+  log_info
 }
