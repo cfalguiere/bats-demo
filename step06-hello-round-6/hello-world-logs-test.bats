@@ -8,13 +8,13 @@
 load $BATS_TEST_DIRNAME/hello-world-logs-functions.sh
 
 @test "severity info should start with INFO and show the message" {
-  result="$( eval log_info "this is a test" )"
+  result="$( log_info "this is a test" 2>&1 )"
   echo "result=$result"
   [[ "$result" = "INFO - this is a test"  ]]
 }
 
 @test "severity info should start with INFO and show the message - alt" {
-  result="$( msg="this is a test" log_info )"
+  result="$( eval msg="this is a test" log_info )"
   echo "result=$result"
   [[ "$result" = "INFO - this is a test"  ]]
 }
