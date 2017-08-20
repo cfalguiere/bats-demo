@@ -27,5 +27,5 @@ function log_error_message() {
 # print the name of a variable and the value
 # usage: print_var
 function print_var() {
-  echo "$1" "$( eval echo $1 )"
+  echo "$1" "$( eval echo \$$1 )"
 }
