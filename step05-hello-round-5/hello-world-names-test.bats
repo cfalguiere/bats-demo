@@ -16,6 +16,7 @@
 
 @test "should output Hello Jabberwock!" {
   run $BATS_TEST_DIRNAME/hello-world.sh -n Jabberwock
+  echo "output=$output"
   [ "$status" -eq 0 ]
   [ "$output" = "Hello Jabberwock!" ]
 }
