@@ -1,7 +1,8 @@
 # print the info message
 # usage: log_info "a message"
 function log_info() {
-  echo "INFO - $@"
+  #echo "INFO - $@"
+  echo "INFO - $@" >&2
 }
 
 # print the info message
@@ -13,7 +14,8 @@ function log_info_message() {
 # print the eroor message
 # usage: log_error "a message"
 function log_error() {
-  echo "ERROR - $@"
+  #echo "ERROR - $@"
+  echo "ERROR - $@" >&2
 }
 
 # print the error message
