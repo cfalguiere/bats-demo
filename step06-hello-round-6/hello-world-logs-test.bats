@@ -3,18 +3,31 @@
 ## This test assumes that the script under test lies in the same folder as the test
 ## $BATS_TEST_DIRNAME is one of the environment variables provided by Bats
 
-# let's try with a simple name
+# test of functions
 
-#load hello-world-functions-test-helper
-load $BATS_TEST_DIRNAME/hello-world-functions-test-helper.bash
+load $BATS_TEST_DIRNAME/hello-world-functions.bash
 
 @test "severity info should start with INFO and show the message" {
+  result = $( log_info "this is a test" )
+  [[ "$result" = "INFO - this is a test"  ]]
+}
+
+@test "severity info should start with INFO and show the message - alt" {
+  result = $( msg="this is a test" log_info )
+  [[ "$result" = "INFO - this is a test"  ]]
+}
+
+# test of functions through run and helpers
+
+load hello-world-functions-test-helper
+
+@test "severity info should start with INFO and show the message - helper" {
   run functions_test_helper log_info "this is a test"
   echo "output=$output"
   [[ "$output" = "INFO - this is a test"  ]]
 }
 
-@test "severity info should start with INFO and show the message - alt" {
+@test "severity info should start with INFO and show the message - helper alt" {
   run log_info_test_helper "this is a test"
   echo "output=$output"
   [[ "$output" = "INFO - this is a test"  ]]
