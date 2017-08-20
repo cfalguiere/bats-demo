@@ -1,7 +1,9 @@
 #!/bin/bash
 
-script_dire=$(readlink -f $0 | xargs dirname)
+script_dir=$(readlink -f $0 | xargs dirname)
 script_name=$(readlink -f $0 | xargs basename)
+
+source $script_dir/hello-world-logs-functions.sh
 
 function usage() {
    echo "Usages:"
@@ -34,7 +36,8 @@ while getopts "vhn:" opt; do
       ;;
     n)
       name=$OPTARG
-      [[ $verbosity -ge 1 ]] && echo "input parameter name = '""$name""'"
+      #[[ $verbosity -ge 1 ]] && echo "input parameter name = '""$name""'"
+      [[ $verbosity -ge 1 ]] && log_info "input parameter name = '""$name""'"
       ;;
   esac
 done
@@ -43,7 +46,8 @@ done
 #
 [[ -z $name ]] && errors+=("No name provided. Name is mandatory!")
 
-[[ -z ${errors[@]} ]] || { for i in "${errors[@]}"; do echo $i; done; exit 1; }
+#[[ -z ${errors[@]} ]] || { for i in "${errors[@]}"; do echo $i; done; exit 1; }
+[[ -z ${errors[@]} ]] || { for i in "${errors[@]}"; do log_error $i; done; exit 1; }
 
 # do the task
 #
