@@ -13,10 +13,18 @@
   [[ "$output" =~ "verbose mode is on" ]]
 }
 
-# When verbose is on, each input parameter yield a trace
+# When verbose is on, each input parameter must yield a trace
 
 @test "When -v and -n should output the value of name" {
   run $BATS_TEST_DIRNAME/hello-world.sh -v -n "Alice"
   echo "output=$output"
   [[ "$output" =~ "input parameter name = 'Alice'" ]]
+}
+
+# When verbose is off, input parameter should not yield a trace
+
+@test "When no -v should not output the value of name" {
+  run $BATS_TEST_DIRNAME/hello-world.sh -v -n "Alice"
+  echo "output=$output"
+  [[ ! "$output" =~ "input parameter name = 'Alice'" ]]
 }
