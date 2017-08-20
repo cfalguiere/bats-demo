@@ -5,7 +5,7 @@
 
 # let's try with a simple name
 
-load hello-world-functions-tests-helper
+load hello-world-functions-test-helper
 
 @test "logs info should start with INFO and show the message" {
   run log_info_test
