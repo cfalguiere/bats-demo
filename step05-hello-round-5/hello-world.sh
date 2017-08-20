@@ -1,10 +1,12 @@
 #!/bin/bash
 errors=()
 script_name=$(readlink -f $0 | xargs basename)
-[[ $# -ne 1 ]] && errors+=("Usage: $script_name <name>")
+#[[ $# -ne 1 ]] && errors+=("Usage: $script_name <name>")
+[[ $# -aq 0 ]] && errors+=("Usage: $script_name <name>")
 
 # read arguments
 #
+#name=$1
 name=
 verbosity=0
 while getopts "vn:" opt; do
