@@ -16,7 +16,7 @@ USAGE_MESSAGE="Usages:"
 @test "When no parameter is provided should output the usage on first line" {
   run $BATS_TEST_DIRNAME/hello-world.sh
   echo "line_0=${lines[0]}"
-  [ "${lines[0]}" = "USAGE_MESSAGE" ]
+  [ "${lines[0]}" = "$USAGE_MESSAGE" ]
 }
 
 # When usage is triggered because no parameter were given, this is an error
