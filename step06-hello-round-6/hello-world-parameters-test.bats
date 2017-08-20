@@ -20,7 +20,7 @@ USAGE_MESSAGE=(
   run $BATS_TEST_DIRNAME/hello-world.sh -h
   echo "output=${output}"
   [ "${#lines[@]}" -eq 7 ]
-  for i in (0..7); do
+  for i in {0..7}; do
     [ "${lines[$i]}" = "${USAGE_MESSAGE[$i]}" ]
   done
 }
