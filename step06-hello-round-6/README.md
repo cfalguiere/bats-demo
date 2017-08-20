@@ -24,8 +24,8 @@ Existing specifications
 
 Additional specifications
 
-- The script must provide a usage to helping users
-- Errors and trace must go to the standard error stream
+- The script must provide a usage to help users
+- Errors and traces must go to the standard error stream
 - The severity of the message (ERROR,WARN,INFO,DEBUG) must be added at the beginning of the message
 
 ## New usage
@@ -44,9 +44,75 @@ There are many changes to be done from a technical standpoint.
 - new tests are required to tests functions on isolation
 
 
+## Adding -h and usage
+
+Usage has now multiple lines. It should be the text below
+
+
+> Usages:
+>    hello-world.sh [-v] -n name : output Hello name!
+>    hello-world.sh -h : show the help
+> Parameters :
+>    -v : increase verbosity
+>    -n name : indicates the name of the person to say hello to
+>    -h : display the usage
+
+A new test is added.
+
+As it would be cumbersome to check each line of this message at many placces, the message will be tested once. Other tests will only check whether the usage function has been triggered and will test only line one.
+
+
+```
+# usage as an array
+
+USAGE_MESSAGE=(
+"Usages:"
+"    hello-world.sh [-v] -n name : output Hello name!"
+"    hello-world.sh -h : show the help"
+" Parameters :"
+"    -v : increase verbosity"
+"    -n name : indicates the name of the person to say hello to"
+"    -h : display the usage"
+)
+
+# check the usage for presence and check every line
+
+@test "On -h should output the usage" {
+  run $BATS_TEST_DIRNAME/hello-world.sh -h
+  echo "output=${output}"
+  [ "${#lines[@]}" -eq 7 ]
+  for i in (0..7); do
+    [ "${lines[$i]}" = "${USAGE_MESSAGE[$i]}" ]
+  done
+}
+
+# check that -h does not exit with errors
+
+@test "On -h should exit with 0" {
+  run $BATS_TEST_DIRNAME/hello-world.sh -h
+  [ "$status" -eq 1 ]
+}
+````
+
+Also added a test to ascertain that the programm does not exit with error on -h.
+
+Existing tests have been altered to use the array.
+
+```
+# only check the usage for presence
+
+@test "When no parameter is provided should output the usage on first line" {
+  run $BATS_TEST_DIRNAME/hello-world.sh
+  echo "line_0=${lines[0]}"
+  [ "${lines[0]}" = "${USAGE_MESSAGE[0]}" ]
+}
+```
+
+Tests should fail as code as not been modified. But let's give a try.
+
+
 
 TODO factor usage dans le test
-TODO usage sur deux lignes
 TODO comment tester soit -n soit -h ?
 TODO output hello sur la premiere ligne sauf si verbose et pas d'autres choses
 

@@ -269,8 +269,26 @@ USAGE="Usage: hello-world.sh [-v] -n name"
 }
 ```
 
-Every test passed. Cool. It's time for a break.
+Every test passed.
 
+```
+$ bats step05-hello-round-5/
+ ✓ should output Hello Alice!
+ ✓ should output Hello Jabberwock!
+ ✓ should output Hello Cheshire Cat! when names has many words
+ ✓ When no name is provided should exit with 1
+ ✓ When no name is provided output should contain name is mandatory
+ ✓ When no parameter is provided should exit with 1
+ ✓ When no parameter is provided output should contain the usage
+ ✓ When no parameter is provided should output the usage on first line
+ ✓ When -v should change verbosity and output a trace
+ ✓ When -v and -n should output the value of name
+ ✓ When no -v should not output the value of name
+
+11 tests, 0 failures
+```
+
+Cool! It's time for a break.
 
 ## What we have learned
 
