@@ -1,4 +1,4 @@
 function log_info() {
-  echo "INFO - $1"
+  echo "INFO - $msg"
 }
 
