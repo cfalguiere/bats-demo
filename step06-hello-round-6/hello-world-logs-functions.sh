@@ -23,3 +23,9 @@ function log_error() {
 function log_error_message() {
   echo "ERROR - $msg"
 }
+
+# print the name of a variable and the value
+# usage: print_var
+function print_var() {
+  echo "$1 ${$1}"
+}

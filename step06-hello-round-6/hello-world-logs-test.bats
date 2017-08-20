@@ -7,17 +7,12 @@
 
 load $BATS_TEST_DIRNAME/hello-world-logs-functions.sh
 
-@test "severity info should start with INFO and show the message" {
-  result="$( log_info "this is a test" 2>&1 )"
+@test "print_var outputs the name and value" {
+  result=$( print_var "BATS_TEST_DIRNAM" )
   echo "result=$result"
-  [[ "$result" = "INFO - this is a test"  ]]
+  [[ "$result" = "BATS_TEST_DIRNAME=$BATS_TEST_DIRNAME"  ]]
 }
 
-@test "severity info should start with INFO and show the message - alt" {
-  result="$( msg="this is a test" log_info 2>&1 )"
-  echo "result=$result"
-  [[ "$result" = "INFO - this is a test"  ]]
-}
 
 # test of functions through run and helpers
 
