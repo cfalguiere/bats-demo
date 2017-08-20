@@ -3,7 +3,15 @@
 script_dir=$(readlink -f $0 | xargs dirname)
 script_name=$(readlink -f $0 | xargs basename)
 
-source $script_dir/hello-world-functions.bash
+function usage() {
+   echo "Usages:"
+   echo "    hello-world.sh [-v] -n name : output Hello name!"
+   echo "    hello-world.sh -h : show the help"
+   echo "Parameters :"
+   echo "    -v : increase verbosity"
+   echo "    -n name : indicates the name of the person to say hello to"
+   echo "    -h : display the usage"
+}
 
 errors=()
 #[[ $# -eq 0 ]] && errors+=("Usage: $script_name [-v] -n name")

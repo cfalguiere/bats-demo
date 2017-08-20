@@ -18,18 +18,6 @@ USAGE_MESSAGE=(
 load hello-world-functions
 # relative to the test
 
-# check the usage function
-
-@test "usage function should output the usage" {
-  run usage
-  echo "output=${output}"
-  [ "${#lines[@]}" -eq 7 ]
-  for i in {0..7}; do
-    [ "${lines[$i]}" = "${USAGE_MESSAGE[$i]}" ]
-  done
-}
-
-
 # check the usage for presence and check every line
 
 @test "On -h should output the usage" {
