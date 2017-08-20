@@ -8,7 +8,7 @@
 load hello-world-functions-test-helper
 
 @test "logs info should start with INFO and show the message" {
-  run functions_test_helper msg="this is a test" log_info
+  run functions_test_helper msg='this is a test' log_info
   echo "output=$output"
   [[ "$output" = "INFO - this is a test"  ]]
 }
