@@ -44,3 +44,10 @@ load hello-world-functions-test-helper
   [[ "${lines[1]}" = "INFO - input parameter name = 'Alice'"  ]]
 }
 
+@test "error should go on stderr" {
+  run filter_stderr_test_helper $BATS_TEST_DIRNAME/hello-world.sh -v
+  echo "output=$output"
+  [[ "${#lines[@]}" -eq 2 ]]
+  [[ "${lines[0]}" = "INFO - verbose mode is on"  ]]
+  [[ "${lines[1]}" = "ERROR - No name provided. Name is mandatory!"  ]]
+}
