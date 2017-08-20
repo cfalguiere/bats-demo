@@ -1,5 +1,5 @@
 #!/bin/bash
-source $BATS_TEST_DIRNAME/hello-world-functions.sh
+source $BATS_TEST_DIRNAME/hello-world-logs-functions.sh
 #TODO script path
 
 function functions_test_helper() {
