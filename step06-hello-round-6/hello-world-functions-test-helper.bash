@@ -13,3 +13,7 @@ function log_info_test_helper() {
 function log_error_test_helper() {
   msg=$1 log_error_message
 }
+
+function filter_stderr_test_helper() {
+  $@ 1>/dev/null
+}
