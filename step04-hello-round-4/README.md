@@ -3,7 +3,7 @@
 After the demo, user were happy. They feel the need for a usage of this beautiful program.
 
 > **focus of this section**
-> checking multiple line output
+> checking output spanning on multiple lines
 > organizing tests in multiple files
 > run a test suite
 
@@ -60,7 +60,8 @@ $ bats step04-hello-round-4/hello-world-parameters-test.bats
 2 tests, 1 failures
 ```
 
-Here is the script rewritten to allow multiple checks.
+Here is the script rewritten to allow multiple checks. The code now use a table and add error message for each test. If there are error messages it shows all the message errors
+
 
 ````
 #!/bin/bash
@@ -76,189 +77,257 @@ echo "Hello $name!"
 `````
 
 
-
-Now the test is fixed for checking for exit 1 in both case. Let's fix the code to pass the test.
-
-Now the test is fixed for checking for exit 1 in both case. Let's fix the code to pass the test.
-
-I changed the script for the code below
-
-```
-#!/bin/bash
-name=$1
-[[ -z $name ]] && { echo "No name provided. Name is mandatory!"; exit 1 }
-echo "Hello $name!"
-```
+Well, Rome wasn't build in a day ...
 
 
-But the test still fail.
-
-```
-$ bats step03-hello-round-3/hello-world-parameters-test.bats
- ✗ When no name is provided should output name is mandatory and exit with 1
-   (in test file step03-hello-round-3/hello-world-parameters-test.bats, line 9)
-     `[ "$status" -eq 1 ]' failed
- ✗ When no parameter is provided should output the usage and exit with 1
-   (in test file step03-hello-round-3/hello-world-parameters-test.bats, line 15)
-     `[ "$status" -eq 1 ]' failed
- - inspect bats src (skipped)
 ````
-
-After some checks in the documentation, the script need be changed as shown below.
-```
-#!/bin/bash
-name=$1
-#[[ -z $name ]] && { echo "No name provided. Name is mandatory!"; exit 1 }
-[[ -z $name ]] && { echo "No name provided. Name is mandatory!"; exit 1; }
-echo "Hello $name!"
-````
-
-It fixes the first test.
-
-```
-$ bats step03-hello-round-3/hello-world-parameters-test.bats
- ✓ When no name is provided should output name is mandatory and exit with 1
- ✗ When no parameter is provided should output the usage and exit with 1
-   (in test file step03-hello-round-3/hello-world-parameters-test.bats, line 16)
+$ bats step04-hello-round-4/hello-world-parameters-test.bats
+ ✓ When no parameter is provided should exit with 1
+ ✗ When no parameter is provided should output the usage
+   (in test file step04-hello-round-4/hello-world-parameters-test.bats, line 14)
      `[ "$output" = "Usage: hello-world.sh <name>" ]' failed
- - inspect bats src (skipped)
 
-3 tests, 1 failure, 1 skipped
+2 tests, 1 failures
 ````
 
-Now let's implement the usage.
-
-The code now use a table and add error message for each test. If there are error messages it show all the errors
+Adding an debug trace in the test shows that the output contains both messages and words of the messages are issued on multiple lines.
 
 ````
-#!/bin/bash
-name=$1
-errors=()
-[[ -z $name ]] && errors+="No name provided. Name is mandatory!"
-[[ $# -ne 1 ]] && errors+="Usage: $0 <name>"
-[[ -z ${errors[@]} ]] || { for i in ${errors[@]}; do echo $i; done; exit 1; }
-
-echo "Hello $name!"
+@test "When no parameter is provided should output the usage" {
+  run $BATS_TEST_DIRNAME/hello-world.sh
+  echo "output=$output"
+  [ "$output" = "Usage: hello-world.sh <name>" ]
+}
 ````
 
-```
-cfalguiere@ip-172-31-30-150:~/projects/batsTest/bats-demo$ ../bats/bin/bats step03-hello-round-3/hello-world-parameters-test.bats
- ✗ When no name is provided should output name is mandatory and exit with 1
-   (in test file step03-hello-round-3/hello-world-parameters-test.bats, line 11)
-     `[ "$output" = "No name provided. Name is mandatory!" ]' failed
-   output=No
+````
+ ✗ When no parameter is provided should output the usage
+   (in test file step04-hello-round-4/hello-world-parameters-test.bats, line 14)
+     `[ "$output" = "Usage: hello-world.sh <name>" ]' failed
+   output=Usage:
+   /home/cfalguiere/projects/batsTest/bats-demo/step04-hello-round-4/hello-world.sh
+   <name>No
    name
    provided.
    Name
    is
-   mandatory!Usage:
-   /home/cfalguiere/projects/batsTest/bats-demo/step03-hello-round-3/hello-world.sh
-   <name>
- ✗ When no parameter is provided should output the usage and exit with 1
-   (in test file step03-hello-round-3/hello-world-parameters-test.bats, line 17)
-     `[ "$output" = "Usage: hello-world.sh <name>" ]' failed
- - inspect bats src (skipped)
-
-3 tests, 2 failures, 1 skipped
+   mandatory!
 ```
 
-Fixed into
+To focus on the usage message, the test must be rewritten. The script report the usage on first line. Then the test may be rewritten as shown below.
+
+```
+@test "When no parameter is provided should output the usage on first line" {
+  run $BATS_TEST_DIRNAME/hello-world.sh
+  echo "line_0=${lines[0]}"
+  [ "${lines[0]}" = "Usage: hello-world.sh <name>" ]
+}
+```
+
+The variable _output_ contains all the lines yield by the script. The array _lines_ contain the same information but each line in a row.
+
+
+The old test is skipped for the time being. This instruct Bats to ignore this tests.
+
+We want to focus on test that could pass while we are debugging. We will fix this later.
+
+```
+@test "When no parameter is provided should output the usage" {
+  skip
+  run $BATS_TEST_DIRNAME/hello-world.sh
+  echo "output=$output"
+  [ "$output" = "Usage: hello-world.sh <name>" ]
+}
+```
+
+Now you can see that the second test is marked as skipped and the third fails.  The first lines contains only the first word of the message.
+
+```
+cfalguiere@ip-172-31-30-150:~/projects/batsTest/bats-demo$ ../bats/bin/bats step04-hello-round-4/hello-world-parameters-test.bats
+ ✓ When no parameter is provided should exit with 1
+ - When no parameter is provided should output the usage (skipped)
+ ✗ When no parameter is provided should output the usage on first line
+   (in test file step04-hello-round-4/hello-world-parameters-test.bats, line 21)
+     `[ "${lines[0]}" = "Usage: hello-world.sh <name>" ]' failed
+   line_0=Usage:
+
+3 tests, 1 failure, 1 skipped
+```
+
+The word split is caused by a mistake in the script.
+
+The array expansion list the content of the array. However, quoting the expansion preserve the array items while the non quoted version end up with a list of words. Pay attention to the spacing in the example below.
+
+```
+$ export a1=( "aa    aa" "bb    bb" )
+$ echo  ${a1[@]}
+aa aa bb bb
+$ echo  "${a1[@]}"
+aa    aa bb    bb
 ````
-#!/bin/bash
-name=$1
-errors=()
-[[ -z $name ]] && errors+="No name provided. Name is mandatory!"
-[[ $# -ne 1 ]] && errors+="Usage: $0 <name>"
+
+The script is altered to change this behavior.
+
+```
+#[[ -z ${errors[@]} ]] || { for i in ${errors[@]}; do echo "$i"; done; exit 1; }
 [[ -z ${errors[@]} ]] || { for i in "${errors[@]}"; do echo $i; done; exit 1; }
-
-echo "Hello $name!"
-````
-
-The text is no more splitted by words but both messages are on the same line.
-
-
-```
-cfalguiere@ip-172-31-30-150:~/projects/batsTest/bats-demo$ ../bats/bin/bats step03-hello-round-3/hello-world-parameters-test.bats
- ✗ When no name is provided should output name is mandatory and exit with 1
-   (in test file step03-hello-round-3/hello-world-parameters-test.bats, line 11)
-     `[ "$output" = "No name provided. Name is mandatory!" ]' failed
-   output=No name provided. Name is mandatory!Usage: /home/cfalguiere/projects/batsTest/bats-demo/step03-hello-round-3/hello-world.sh <name>
- ✗ When no parameter is provided should output the usage and exit with 1
-   (in test file step03-hello-round-3/hello-world-parameters-test.bats, line 17)
-     `[ "$output" = "Usage: hello-world.sh <name>" ]' failed
- - inspect bats src (skipped)
-
-3 tests, 2 failures, 1 skipped
 ```
 
-Fixed into
+
+There are some progress. The text is no more splitted by words but both messages are on the same line. But it looks like there is only one item in the array.
+
+```
+
+cfalguiere@ip-172-31-30-150:~/projects/batsTest/bats-demo$ ../bats/bin/bats step04-hello-round-4/hello-world-parameters-test.bats
+ ✓ When no parameter is provided should exit with 1
+ - When no parameter is provided should output the usage (skipped)
+ ✗ When no parameter is provided should output the usage on first line
+   (in test file step04-hello-round-4/hello-world-parameters-test.bats, line 21)
+     `[ "${lines[0]}" = "Usage: hello-world.sh <name>" ]' failed
+   line_0=Usage: /home/cfalguiere/projects/batsTest/bats-demo/step04-hello-round-4/hello-world.sh <name>No name provided. Name is mandatory!
+
+3 tests, 1 failure, 1 skipped
+```
+
+This is caused by another mistake when adding the message into the array.
+
+Let's check the example below.
+
 ````
-#!/bin/bash
-name=$1
-errors=()
-[[ -z $name ]] && errors+=("No name provided. Name is mandatory!")
+$ export a2=()
+$ a2+="aaa"
+$ a2+="bbb"
+$ for i in "${a2[@]}"; do echo $i; done
+aaabbb
+$ a2+=("ccc")
+$ for i in "${a2[@]}"; do echo $i; done
+aaabbb
+ccc
+$ a2+="ddd"
+$ for i in "${a2[@]}"; do echo $i; done
+```
+
+The += concatenate arrays. The used with a string as a right side operand it concatenates the string to the first item.
+
+After the messages has been fixed as below there is only one message.
+
+````
+#[[ $# -ne 1 ]] && errors+="Usage: $0 <name>"
 [[ $# -ne 1 ]] && errors+=("Usage: $0 <name>")
-[[ -z ${errors[@]} ]] || { for i in "${errors[@]}"; do echo $i; done; exit 1; }
+```
 
-echo "Hello $name!"
+```
+$ bats step04-hello-round-4/hello-world-parameters-test.bats
+ ✓ When no parameter is provided should exit with 1
+ - When no parameter is provided should output the usage (skipped)
+ ✗ When no parameter is provided should output the usage on first line
+   (in test file step04-hello-round-4/hello-world-parameters-test.bats, line 21)
+     `[ "${lines[0]}" = "Usage: hello-world.sh <name>" ]' failed
+   line_0=Usage: /home/cfalguiere/projects/batsTest/bats-demo/step04-hello-round-4/hello-world.sh <name>
+
+3 tests, 1 failure, 1 skipped
+```
+
+The test does not expect the full path to the command. There are many options from a hardcoded name to a combination of readlink and basename.
+
+
+Ok, after some adjustments not more failing test shows up.
+
+```
+$ bats step04-hello-round-4/hello-world-parameters-test.bats
+ ✓ When no parameter is provided should exit with 1
+ - When no parameter is provided should output the usage (skipped)
+ ✓ When no parameter is provided should output the usage on first line
+
+3 tests, 0 failures, 1 skipped
 ````
+
+But, wait a minute, the slipped test is still there. A valid option is to remove this test. The line_0 test checks the message.
+
+Another option is to check whether the output contains the message.
+
+```
+@test "When no parameter is provided should contain the usage" {
+  run $BATS_TEST_DIRNAME/hello-world.sh
+  #[ "$output" = "Usage: hello-world.sh <name>" ]
+  [[ "$output" =~ "Usage: hello-world.sh <name>" ]]
+}
+```
+
+The =~ operator checks whether the string on the left side matched the regex on the right side. This operator is only defined in test v2. Thus the double brackets must be used.
+
 
 Now it works as expected.
 
+```
+cfalguiere@ip-172-31-30-150:~/projects/batsTest/bats-demo$ ../bats/bin/bats step04-hello-round-4/hello-world-parameters-test.bats
+ ✓ When no parameter is provided should exit with 1
+ ✓ When no parameter is provided output should contain the usage
+ ✓ When no parameter is provided should output the usage on first line
+
+4 tests, 0 failures, 0 skipped
+```
+
+Let's give a try to the program
+
 ````
-$ ./step03-hello-round-3/hello-world.sh
+$ ./step04-hello-round-4/hello-world.sh
+Usage: hello-world.sh <name>
 No name provided. Name is mandatory!
-Usage: ./step03-hello-round-3/hello-world.sh <name>
 ````
 
-But the test don't pass.
+Is it done ?
 
-```
-cfalguiere@ip-172-31-30-150:~/projects/batsTest/bats-demo$ ../bats/bin/bats step03-hello-round-3/hello-world-parameters-test.bats
- ✗ When no name is provided should output name is mandatory and exit with 1
-   (in test file step03-hello-round-3/hello-world-parameters-test.bats, line 11)
+Well .... No
+
+Remember. We have splitted the tests in two different files.
+
+What if I run all the tests in the test suite ?
+
+````
+$ bats step04-hello-round-4
+ ✓ should output Hello Alice!
+ ✓ should output Hello Jabberwock!
+ ✓ should output Hello Cheshire Cat! when names has many words
+ ✓ When no name is provided should exit with 1
+ ✗ When no name is provided should output name is mandatory
+   (in test file step04-hello-round-4/hello-world-names-test.bats, line 46)
      `[ "$output" = "No name provided. Name is mandatory!" ]' failed
-   output=No name provided. Name is mandatory!
-   Usage: /home/cfalguiere/projects/batsTest/bats-demo/step03-hello-round-3/hello-world.sh <name>
- ✗ When no parameter is provided should output the usage and exit with 1
-   (in test file step03-hello-round-3/hello-world-parameters-test.bats, line 17)
-     `[ "$output" = "Usage: hello-world.sh <name>" ]' failed
- - inspect bats src (skipped)
+   output=Usage: hello-world.sh <name>
+   No name provided. Name is mandatory!
+ ✓ When no parameter is provided should exit with 1
+ ✓ When no parameter is provided output should contain the usage
+ ✓ When no parameter is provided should output the usage on first line
 
-3 tests, 2 failures, 1 skipped
-```
+8 tests, 1 failure, 0 skipped
+````
 
-The reason is that output contains 2 lines and does not match either message.
+Bats may run a test file, a list of test files or a folder.
 
-The test need be rewritten with one or the other of  these techniques
-
-- check that output contains the message instead of equals
-- check each line separately
-
-In order to check for the name is mandatory message, here are the two tests
-
-```
-@test "When no name is provided should output name is mandatory and exit with 1" {
-  run $BATS_TEST_DIRNAME/hello-world.sh
-  echo "output=$output"
-  [ "$status" -eq 1 ]
-  [[ "$output" =~ "No name provided. Name is mandatory!" ]]
-}
-
-@test "When no name is provided should output name is mandatory on first line" {
-  run $BATS_TEST_DIRNAME/hello-world.sh
-  echo "output=$output"
-  [ "$status" -eq 1 ]
-  [ "${lines[0]}" = "No name provided. Name is mandatory!" ]
-}
-```
+When Bats it runs against a folder, all the files having the extension .bats are run. Bats does no scan subdirectories.
 
 
+The other test file need be updated as well because output now has two lines.
+
+````
+$ bats step04-hello-round-4/hello-world-names-test.bats
+ ✓ should output Hello Alice!
+ ✓ should output Hello Jabberwock!
+ ✓ should output Hello Cheshire Cat! when names has many words
+ ✓ When no name is provided should exit with 1
+ ✓ When no name is provided output should contain name is mandatory
+
+5 tests, 0 failures
+````
+
+Now the round is done.
 
 <br>
 
 ## What we have learned
 
-- how to test multiple lines output
 - how to organize tests in different files
+- how to test output spanning on multiple lines
+- how to test output on a specific line
+- how to skip a test
 - how to run a test suite by listing the files or running the test folder
