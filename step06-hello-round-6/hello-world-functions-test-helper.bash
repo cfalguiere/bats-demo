@@ -5,3 +5,7 @@ source $BATS_TEST_DIRNAME/hello-world-logs-functions.sh
 function functions_test_helper() {
   $@
 }
+
+function log_info_test_helper() {
+  msg=$1 log_info_message
+}
