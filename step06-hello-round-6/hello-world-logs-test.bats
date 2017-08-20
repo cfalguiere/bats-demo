@@ -39,6 +39,8 @@ load hello-world-functions-test-helper
   #run $BATS_TEST_DIRNAME/hello-world.sh -v -n Alice 1>/dev/null
   run filter_stderr_test_helper $BATS_TEST_DIRNAME/hello-world.sh -v -n Alice
   echo "output=$output"
-  [[ "$output" = "INFO - this is a test"  ]]
+  [[ "${#lines[@]}" -eq 2 ]]
+  [[ "${lines[0]}" = "INFO - verbose mode is on"  ]]
+  [[ "${lines[1]}" = "INFO - input parameter name = 'Alice'"  ]]
 }
 
