@@ -10,7 +10,7 @@
 @test "When -v should change verbosity and output a trace" {
   run $BATS_TEST_DIRNAME/hello-world.sh -v
   echo "output=$output"
-  [[ "$output" =~ "verbose mode is on" ]]
+  [[ "$output" =~ "INFO - verbose mode is on" ]]
 }
 
 # When verbose is on, each input parameter must yield a trace
