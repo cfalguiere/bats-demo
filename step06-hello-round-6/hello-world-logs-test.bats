@@ -7,15 +7,27 @@
 
 load hello-world-functions-test-helper
 
-@test "logs info should start with INFO and show the message" {
+@test "severity info should start with INFO and show the message" {
   run functions_test_helper log_info "this is a test"
   echo "output=$output"
   [[ "$output" = "INFO - this is a test"  ]]
 }
 
-@test "logs info should start with INFO and show the message" {
+@test "severity info should start with INFO and show the message - alt" {
   run log_info_test_helper "this is a test"
   echo "output=$output"
   [[ "$output" = "INFO - this is a test"  ]]
+}
+
+@test "severity error should start with ERROR and show the message" {
+  run functions_test_helper log_error "this is a test"
+  echo "output=$output"
+  [[ "$output" = "ERROR - this is a test"  ]]
+}
+
+@test "severity error should start with ERROR and show the message - alt" {
+  run log_error_test_helper "this is a test"
+  echo "output=$output"
+  [[ "$output" = "ERROR - this is a test"  ]]
 }
 
