@@ -31,3 +31,13 @@ load hello-world-functions-test-helper
   [[ "$output" = "ERROR - this is a test"  ]]
 }
 
+
+# in order to test whether INFO goes on stderr, stdout is redirect nowhere
+# output now only contains the content of stderr
+
+@test "info should go on stderr" {
+  run $BATS_TEST_DIRNAME/hello-world.sh -v -n Alice 1>/dev/null
+  echo "output=$output"
+  [[ "$output" = "INFO - this is a test"  ]]
+}
+
