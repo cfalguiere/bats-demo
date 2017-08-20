@@ -1,6 +1,5 @@
 #!/bin/bash
 
-script_dir=$(readlink -f $0 | xargs dirname)
 script_name=$(readlink -f $0 | xargs basename)
 
 function usage() {

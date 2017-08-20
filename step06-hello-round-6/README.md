@@ -88,9 +88,9 @@ USAGE_MESSAGE=(
 
 # check that -h does not exit with errors
 
-@test "On -h should exit with 0" {
+@test "On -h should exit without error" {
   run $BATS_TEST_DIRNAME/hello-world.sh -h
-  [ "$status" -eq 1 ]
+  [ "$status" -eq 0 ]
 }
 ````
 
@@ -117,7 +117,7 @@ $ bats step06-hello-round-6/hello-world-parameters-test.bats step06-hello-round-
      `[[ "$output" =~ "$USAGE_MESSAGE"  ]]' failed
  ✗ When no parameter is provided should output the usage on first line
    (in test file step06-hello-round-6/hello-world-parameters-test.bats, line 19)
-     `[ "${lines[0]}" = "USAGE_MESSAGE" ]' failed
+     `[ "${lines[0]}" = "$USAGE_MESSAGE" ]' failed
    line_0=Usage: hello-world.sh [-v] -n name
  ✓ When no parameter is provided should exit with 1
  ✗ On -h should output the usage
@@ -140,6 +140,7 @@ But how can I test the function ?
 
 As a shell command. The fonction has to be imported in bats. source it not useful. Bats provided the load verb to make the function available to the tests.
 
+load load test helpers
 
 
 TODO factor usage dans le test
