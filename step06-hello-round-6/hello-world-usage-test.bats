@@ -15,7 +15,7 @@ USAGE_MESSAGE=(
 
 # load functions from the script under test
 
-load $BATS_TEST_DIRNAME/hello-world.sh
+load $BATS_TEST_DIRNAME/hello-world-functions.sh
 
 # check the usage function
 
