@@ -45,6 +45,7 @@
 @test "When no name is provided output should contain name is mandatory" {
   run $BATS_TEST_DIRNAME/hello-world.sh -n
   echo "output=$output"
-  [[ "$output" =~ "No name provided. Name is mandatory!" ]]
+  #[[ "$output" =~ "No name provided. Name is mandatory!" ]]
+  [[ "$output" =~ "ERROR - No name provided. Name is mandatory!" ]]
 }
 
