@@ -17,7 +17,7 @@ while getopts "vn:" opt; do
       ;;
     n)
       name=$OPTARG
-      [[ verbosity -ge 1 ]] && echo "input parameter name = '""$name""'"
+      [[ $verbosity -ge 1 ]] && echo "input parameter name = '""$name""'"
       ;;
   esac
 done
