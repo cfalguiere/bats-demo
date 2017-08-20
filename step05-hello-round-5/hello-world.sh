@@ -6,10 +6,16 @@ script_name=$(readlink -f $0 | xargs basename)
 # read arguments
 #
 name=
-while getopts "n:" opt; do
+verbosity=0
+while getopts "vn:" opt; do
   case $opt in
+    v)
+      let verbosity++
+      echo "verbose mode is on"
+      ;;
     n)
       name=$OPTARG
+      echo input parameter name = '"$name"'
       ;;
   esac
 done
