@@ -52,3 +52,33 @@ TODO usage sur deux lignes
 TODO comment tester soit -n soit -h ?
 TODO output hello sur la premiere ligne sauf si verbose et pas d'autres choses
 
+
+## Add -n switch
+
+All tests are adapted to fit the -n. For instance :
+
+```
+@test "should output Hello Alice!" {
+  run $BATS_TEST_DIRNAME/hello-world.sh -n Alice
+  [ "$status" -eq 0 ]
+  [ "$output" = "Hello Alice!" ]
+}
+```
+
+All tests now fail, excepted the test for no arguments. Let's fix the code.
+
+````
+name=$1
+`````
+
+is replaced with
+
+```name=
+while getopts "n:" opt; do
+  case $opt in
+    n)
+      name=$OPTARG
+      ;;
+  esac
+done
+```
