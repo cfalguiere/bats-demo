@@ -6,7 +6,7 @@
 # let's try with a simple name
 
 #load hello-world-functions-test-helper
-load $BATS_TEST_DIRNAME/hello-world-functions-test-helper
+load $BATS_TEST_DIRNAME/hello-world-functions-test-helper.bash
 
 @test "severity info should start with INFO and show the message" {
   run functions_test_helper log_info "this is a test"
