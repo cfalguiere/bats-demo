@@ -8,7 +8,7 @@
 load $BATS_TEST_DIRNAME/hello-world-logs-functions.sh
 
 @test "print_var outputs the name and value" {
-  result=$( print_var "BATS_TEST_DIRNAM" )
+  result=$( print_var "BATS_TEST_DIRNAME" )
   echo "result=$result"
   [[ "$result" = "BATS_TEST_DIRNAME=$BATS_TEST_DIRNAME"  ]]
 }
