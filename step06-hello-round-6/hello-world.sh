@@ -28,7 +28,8 @@ while getopts "vhn:" opt; do
   case $opt in
     v)
       let verbosity++
-      echo "verbose mode is on"
+      #echo "verbose mode is on"
+      log_info "verbose mode is on"
       ;;
     h)
       usage
