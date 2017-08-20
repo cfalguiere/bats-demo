@@ -13,11 +13,6 @@ USAGE_MESSAGE=(
 "    -h : display the usage"
 )
 
-# load functions from the script under test
-
-load hello-world-functions
-# relative to the test
-
 # check the usage for presence and check every line
 
 @test "On -h should output the usage" {
