@@ -2,7 +2,7 @@
 errors=()
 script_name=$(readlink -f $0 | xargs basename)
 #[[ $# -ne 1 ]] && errors+=("Usage: $script_name <name>")
-[[ $# -aq 0 ]] && errors+=("Usage: $script_name <name>")
+[[ $# -eq 0 ]] && errors+=("Usage: $script_name <name>")
 
 # read arguments
 #
