@@ -5,7 +5,7 @@
 
 # test of functions
 
-load $BATS_TEST_DIRNAME/hello-world-logs-functions.bash
+load $BATS_TEST_DIRNAME/hello-world-logs-functions.sh
 
 @test "severity info should start with INFO and show the message" {
   result = $( log_info "this is a test" )
