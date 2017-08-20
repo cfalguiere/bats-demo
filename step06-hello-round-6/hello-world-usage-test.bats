@@ -19,7 +19,7 @@ load $BATS_TEST_DIRNAME/hello-world-functions.sh
 
 # check the usage function
 
-@test "On -h should output the usage" {
+@test "usage function should output the usage" {
   run usage
   echo "output=${output}"
   [ "${#lines[@]}" -eq 7 ]
@@ -40,9 +40,9 @@ load $BATS_TEST_DIRNAME/hello-world-functions.sh
   done
 }
 
-# check that -h does not exit with errors
+# check that -h does not exit with errors unlike the no parameter check
 
-@test "On -h should exit with 0" {
+@test "On -h should exit without error" {
   run $BATS_TEST_DIRNAME/hello-world.sh -h
-  [ "$status" -eq 1 ]
+  [ "$status" -eq 0 ]
 }
