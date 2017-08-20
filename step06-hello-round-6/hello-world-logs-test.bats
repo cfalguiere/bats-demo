@@ -8,7 +8,7 @@
 load $BATS_TEST_DIRNAME/hello-world-logs-functions.sh
 
 @test "print_var outputs the name and value" {
-  export VAE="abcd"
+  VAR="abcd"
   result=$( print_var "VAR" )
   echo "result=$result"
   [[ "$result" = "VAR='abcd'"  ]]
