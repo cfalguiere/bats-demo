@@ -15,7 +15,7 @@
 
 # When verbose is on, each input parameter yield a trace
 
-@test "When -v should change verbosity and output a trace" {
+@test "When -v and -n should output the value of name" {
   run $BATS_TEST_DIRNAME/hello-world.sh -v -n "Alice"
   echo "output=$output"
   [[ "$output" =~ "input parameter name = 'Alice'" ]]
